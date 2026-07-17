@@ -1,4 +1,4 @@
-import React from "react"
+import {Link} from "react-router-dom"
 import Navbar from "../Components/Navbar"
 import Hero from "../Components/Hero"
 import Card from "../Components/Card"
@@ -26,7 +26,7 @@ const Home = ()=>{
     <div className="principal-container">
 
         <div className="principal-image">
-            <img src="./IMAGES/principal.jpg" alt="Principal" />
+            <img src="./IMAGES/BigDaddy.jpg" alt="Principal" />
         </div>
 
         <div className="principal-content">
@@ -83,13 +83,11 @@ const Home = ()=>{
        <Card img="./IMAGES/science.jfif" title="Science Club" content="Encouraging curiosity and innovation through experiments, projects and exhibitions."/>
        <Card img="./IMAGES/singing_student.png" title="Music & Drama" content="    Nurturing creativity and expression through music,dance and stage performances."/>
        <Card img="./IMAGES/football-removebg-preview.png" title="Sports" content=" Building teamwork, discipline and resilience through indoor and outdoor sporting activities."/>
-       <Card img="./IMAGES/COVER5.jpeg" title="Clubs & Societies" content="Developing leadership and communication skills through various student clubs."/>
-       {/* <Card img="./IMAGES/singing_student.png" title="Music & Drama" content=""/>
-       <Card img="./IMAGES/singing_student.png" title="Music & Drama" content=""/> */}
+       
 
 </div>
   <div className="activity-btn">
-        <a href="#">View All Activities</a>
+        <Link to="/academics">View All Activities</Link>
     </div>
 
     </section>
@@ -109,14 +107,14 @@ const Home = ()=>{
     </div>
 
  <div className="events-grid">
-<Eventcard img="./IMAGES/COVER8.jpeg" date=" 15 June, 2026" title="Graduation Ceremony 2026" text="Celebrating the achievements of our graduating students as they move to the next phase of their journey."/>
-<Eventcard img="./IMAGES/COVER9.jpeg" date=" 08 June, 2026" title="Annual Inter-House Sports" text=" Students showcased their athletic talents in various sporting competitions and team events."/>
-<Eventcard img="./IMAGES/COVER5.jpeg" date="  02 June, 2026" title="Science & Innovation Fair" text="   Students presented creative projects and innovative solutions to real-world challenges"/>
-<Eventcard img="./IMAGES/COVER2.jpeg" date="  02 June, 2029" title="" text=""/>
-<Eventcard img="./IMAGES/COVER3.jpeg" date="08 April, 2026" title="" text=""/>
-
+<Eventcard img="./IMAGES/graduation.jpg" date=" 15 June, 2026" title="Graduation Ceremony 2026" text="Celebrating the achievements of our graduating students as they move to the next phase of their journey."/>
+<Eventcard img="./IMAGES/program.jpg" date=" 08 June, 2026" title="Annual Inter-House Sports" text=" Students showcased their athletic talents in various sporting competitions and team events."/>
+<Eventcard img="./IMAGES/graduands.jpg" date="  02 June, 2026" title="Science & Innovation Fair" text="   Students presented creative projects and innovative solutions to real-world challenges"/>
 
  </div>
+ <div className="activity-btn">
+        <Link to="/events">View All Activities</Link>
+    </div>
     </section>
 
 

@@ -1,0 +1,6 @@
+POST http://localhost:3000/test
+Content-Type: application/json
+
+{
+    "amount":2500
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const slidesData = [
 	{
-		src: "./IMAGES/bg.jpeg",
+		src: "./IMAGES/group_photo.jpg",
 		alt: "students",
 		title: "Welcome to KKC",
 		description: "Inspiring excellence and leadership for a brighter future."
@@ -11,7 +11,7 @@ const slidesData = [
 	    
 	},
 	{
-		src: "./IMAGES/COVER2.jpeg",
+		src: "./IMAGES/graduands.jpg",
 		alt: "Makeup artist",
 		title: "Academic Excellence",
 		description: "Providing quality education in a modern learning environment.",

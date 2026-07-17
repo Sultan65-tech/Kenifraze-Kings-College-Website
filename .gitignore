@@ -1,4 +1,79 @@
-frontend/node_modules/
-frontend/.env
-backend/node_modules/
-backend/.env
+# ======================
+# Dependencies
+# ======================
+uploads/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ======================
+# Environment variables
+# ======================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# ======================
+# Build outputs
+# ======================
+dist/
+build/
+out/
+
+# React build
+client/build/
+frontend/build/
+admin/build/
+
+# ======================
+# Logs
+# ======================
+logs/
+*.log
+
+# ======================
+# Runtime data
+# ======================
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ======================
+# Coverage (tests)
+# ======================
+coverage/
+
+# ======================
+# OS files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# IDE / Editor
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# Misc
+# ======================
+*.tgz
+*.tar.gz
+
+# ======================
+# MongoDB
+# ======================
+*.mongodb
+mongo-data/
+
+# ======================
+# Next / React optional
+# ======================
+.next/
+.cache/
