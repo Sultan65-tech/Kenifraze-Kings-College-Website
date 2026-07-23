@@ -1,6 +1,40 @@
-POST http://localhost:3000/test
+GET  http://localhost:3000/api/admin
+
+###
+
+POST http://localhost:3000/api/admin
 Content-Type: application/json
 
+  {
+    "image": "new.png",
+    "name": "Ghs-Julian",
+    "info": "Julian is from west Bengal. He is a software developer."
+  }
+
+
+###
+
+GET http://localhost:3000/api/admin/Ghs-Julian
+
+###
+PUT http://localhost:3000/api/admin/Graduation Ceremony
+Content-Type: application/json
+
+
 {
-    "amount":2500
-}
+    "_id": "6a5b91738a14a5d6f5b66aec",
+    "image": "Image_name.jpg",
+    "name": "Graduation Ceremony",
+    "info": "New kkc graduation, join us now!!!"
+  }
+
+
+###
+
+DELETE  http://localhost:3000/api/admin
+
+
+
+###
+
+DELETE http://localhost:3000/api/admin/Alumni-together

@@ -19,7 +19,7 @@ const Navbar = ()=>{
         {/* <li><a href="/">Contact</Link></li> */}
     </ul>
     <div>
-          <button className="donate">Donate Now</button>
+          <button className="donate"><Link to="/donation">Donate Now</Link></button>
     </div>
     <div className="menu">
         <AiOutlineMenu size={"30px"} color="purple"  onClick={handleClick}/>
