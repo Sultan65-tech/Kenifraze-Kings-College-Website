@@ -1,0 +1,36 @@
+//console.log(process.env.MONGO_URI);
+
+// const adminsUser = {
+//   id:1,
+//   email:"admin@school.com",
+  // Hashed vaersion of Password
+//   password:"$2b$10$7Z0g5y6k1J3F8Q9L1K2M8eW3Y4Z5A6B7C8D9E0F1G2H3I4J5K6L7M8N9O"
+// }
+
+
+// Login Route
+// app.post("/api/login",async(req,res)=>{
+//   const {email,password} = req.body;
+
+  // Check email
+  // if (email !== adminsUser.email)
+  //   return res.status(401).send("Invalid email");
+
+  // Check password
+  // const validPassword = await bcrypt.compare(password, adminsUser.password);
+  // if (!validPassword)
+  //   return res.status(401).send("Invalid password");
+
+  // Generate JWT
+//   const token = jwt.sign({ id: adminsUser.id, email: adminsUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+//   res.status(200).json({ token });
+
+//   res.json({message:"Login Successfully!",token:token}
+//   )
+// });
+
+// Protected Routes
+// app.post("/api/admin", verifyToken,(req,res)=>{
+
+// res.json({message:"Event Successfully Created!"})
+// })

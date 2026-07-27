@@ -1,7 +1,22 @@
-import Navbar from "../Components/Navbar"
+import { useState } from "react"
+// Styles
 import  "../styles/donation.css"
-import { AiOutlineFork} from "react-icons/ai"
+
+// Components
+import Navbar from "../Components/Navbar"
+import DonationCard from "../Components/DonationCard"
+import NeedCard from "../Components/NeedCard"
+// Icons
+import { AiOutlineFork,AiOutlineBook } from "react-icons/ai"
 const Donation = () => {
+    const [amount, setAmount] = useState("")
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        // Add your form submission logic here
+    }
+    if(amount === String){
+        alert("Error")
+    }
   return (
     <>
      <Navbar/>
@@ -89,27 +104,12 @@ const Donation = () => {
                 </div>
                 
                 <div className="kkcf-needs-grid">
-                    <div className="kkcf-need-card">
-                        <div className="kkcf-need-icon-box kkcf-icon-indigo"><AiOutlineFork/></div>
-                        <h3 className="kkcf-need-card-title">Daily Meals</h3>
-                        <p className="kkcf-need-card-desc">Daily school meals provided through our Lunch Program.</p>
-                    </div>
-                    <div className="kkcf-need-card">
-                        <div className="kkcf-need-icon-box kkcf-icon-pink"><i className="fa-solid fa-book-open"></i></div>
-                        <h3 className="kkcf-need-card-title">Books & Gear</h3>
-                        <p className="kkcf-need-card-desc">Books, educational materials, and classroom supplies.</p>
-                    </div>
-                    <div className="kkcf-need-card">
-                        <div className="kkcf-need-icon-box kkcf-icon-yellow"><i className="fa-solid fa-guitar"></i></div>
-                        <h3 className="kkcf-need-card-title">Instruments</h3>
-                        <p className="kkcf-need-card-desc">Musical instruments and performing arts equipment.</p>
-                    </div>
-                    <div className="kkcf-need-card">
-                        <div className="kkcf-need-icon-box kkcf-icon-green"><i className="fa-solid fa-school"></i></div>
-                        <h3 className="kkcf-need-card-title">Safe Spaces</h3>
-                        <p className="kkcf-need-card-desc">Annual school lease, operational expenses, and logistics.</p>
-                    </div>
+                  <NeedCard Icon={<AiOutlineFork/>} title="Daily Meals" desc="Daily school meals provided through our Lunch Program."/>
+                  <NeedCard Icon={<AiOutlineBook/>}  title="Books & Gear" desc="Books, educational materials, and classroom supplies."/>
+                  <NeedCard Icon={""} title="Instruments" desc="Musical instruments and performing arts equipment."/>
+                  <NeedCard Icon={""} title="Safe Spaces" desc="Annual school lease, operational expenses, and logistics."/>
                 </div>
+
             </div>
         </section>
 {/* 
@@ -121,55 +121,16 @@ const Donation = () => {
                 
                 {/* <!-- Tiers --> */}
                 <div className="kkcf-tiers-grid">
-                    <div className="kkcf-tier-card">
-                        <div>
-                            <div className="kkcf-tier-amt">$25</div>
-                            <div className="kkcf-tier-title">Supplies</div>
-                            <p className="kkcf-tier-desc">Provides educational supplies for a student.</p>
-                        </div>
-                        <button type="button" onclick="selectKkcfAmount(25)" className="kkcf-tier-btn">Select</button>
-                    </div>
+                  
 
-                    <div className="kkcf-tier-card">
-                        <div>
-                            <div className="kkcf-tier-amt">$50</div>
-                            <div className="kkcf-tier-title">Arts</div>
-                            <p className="kkcf-tier-desc">Helps purchase music and performing arts materials.</p>
-                        </div>
-                        <button type="button" onclick="selectKkcfAmount(50)" className="kkcf-tier-btn">Select</button>
-                    </div>
-
-                    <div className="kkcf-tier-card kkcf-tier-card-featured">
-                        <span className="kkcf-tier-badge">Crucial</span>
-                        <div>
-                            <div className="kkcf-tier-amt">$100</div>
-                            <div className="kkcf-tier-title kkcf-tier-title-featured">Lunch Program</div>
-                            <p className="kkcf-tier-desc">Supports nutritious meals for children through the school lunch program.</p>
-                        </div>
-                        <button type="button" onclick="selectKkcfAmount(100)" className="kkcf-tier-btn kkcf-tier-btn-featured">Select</button>
-                    </div>
-
-                    <div className="kkcf-tier-card">
-                        <div>
-                            <div className="kkcf-tier-amt">$250</div>
-                            <div className="kkcf-tier-title">Travel</div>
-                            <p className="kkcf-tier-desc">Helps fund student travel for educational and community performances.</p>
-                        </div>
-                        <button type="button" onclick="selectKkcfAmount(250)" className="kkcf-tier-btn">Select</button>
-                    </div>
-
-                    <div className="kkcf-tier-card">
-                        <div>
-                            <div className="kkcf-tier-amt">$500+</div>
-                            <div className="kkcf-tier-title">Sustain</div>
-                            <p className="kkcf-tier-desc">Provides vital operational support that keeps our classrooms open.</p>
-                        </div>
-                        <button type="button" onclick="selectKkcfAmount(500)" className="kkcf-tier-btn">Select</button>
-                    </div>
+                          {/* <DonationCard amount="$25" title="Supplies" desc="Provides educational supplies for a student."/> */}
+                           <DonationCard amount="$50" title="Arts" desc="Helps purchase music and performing arts materials."/>
+                           <DonationCard amount="$100" title="Lunch Program" desc="Supports nutritious meals for children through the school lunch program."/>
+                           <DonationCard amount="$250" title="Travel" desc="Helps fund student travel for educational and community performances"/>
                 </div>
 
                 {/* <!-- Interactive Checkout Form Box --> */}
-                <div className="kkcf-form-box">
+                <div className="kkcf-form-box" onsubmit={handleSubmit}>
                     <h3 className="kkcf-form-title">Be the Reason a Child Never Gives Up</h3>
                     <p className="kkcf-form-subtitle">Secure Custom Donation Checkout</p>
                     
@@ -178,7 +139,7 @@ const Donation = () => {
                             <label className="kkcf-form-label">Gift Amount ($ USD)</label>
                             <div className="kkcf-input-wrapper">
                                 <span className="kkcf-input-icon">$</span>
-                                <input type="number" name="amount" id="kkcfInputAmount" min="5" value="100" className="kkcf-input-amount" required/>
+                                <input type="number" name="amount" id="kkcfInputAmount" min="5" max={"500"} value={amount} onChange={(e) => setAmount(e.target.value)} className="kkcf-input-amount" required/>
                             </div>
                         </div>
 
