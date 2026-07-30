@@ -1,0 +1,22 @@
+const Artist= [
+    {
+        "image":"artist.jpg",
+        "name":"Bighookz",
+        "phone":"+234-904-013-5258"
+    },
+     {
+        "image":"artist1.jpg",
+        "name":"Bighookz",
+        "phone":"+234-904-013-5258"
+    },
+     {
+        "image":"artist2.jpg",
+        "name":"Bighookz",
+        "phone":"+234-904-013-5258"
+    },
+     {
+        "image":"artist3.jpg",
+        "name":"Bighookz",
+        "phone":"+234-904-013-5258"
+    }
+]

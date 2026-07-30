@@ -7,7 +7,7 @@ const IsAdmin = ({ children }) => {
 	if (admin) {
 		return children;
 	}
-	return <Navigate to='/admin-login' replace />;
+	return <Navigate to='/' replace />;
 };
 
 export default IsAdmin;

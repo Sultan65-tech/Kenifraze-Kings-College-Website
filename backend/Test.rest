@@ -14,7 +14,16 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/api/admin/Ghs-Julian
+POST ​http://localhost:3000/api/admin/event
+Content-Type: application/json
+
+{
+"title":"Graduation Schedule",
+"description":"KKc 15th is about to Kick off",
+"date":"15-06-2026",
+"location":"School Area",
+"ImageUrl":"Graduation.jpg"
+}
 
 ###
 PUT http://localhost:3000/api/admin/Graduation Ceremony

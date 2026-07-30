@@ -14,6 +14,17 @@ const DashboardCard = () => {
 	useEffect(() => {
 		getDashboard();
 	}, []);
+	
+		const [greeting,setGreeting] = useState("Good Morning")
+				// const day = new Date().getHours()
+				// if (day >= 0 || day < 12) {
+				// 	setGreeting("Good Morning")
+				// }else if(day >= 12 || day <= 4){
+				// 	setGreeting("Good Afternoon")
+				// }else if(day > 4 || day < 10){
+				// 	setGreeting("Good Night")
+				// }
+			
 	return (
 		<>
 			<style>{`
@@ -206,12 +217,13 @@ const DashboardCard = () => {
 					}
 				}
 			`}</style>
+			
 			{isLoading ? (
 				<h3 style={{ textAligin: "center" }}>Loading...</h3>
 			) : (
 				<div className="dashboard-wrapper">
 					<div className="page-header">
-						<h1 className="page-title">Good Morning, Admin 👋</h1>
+						<h1 className="page-title">{greeting}, Admin 👋</h1>
 						<div className="live-box">
 							<span className="live-dot">●</span>
 							Live Now

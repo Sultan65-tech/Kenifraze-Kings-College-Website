@@ -1,13 +1,12 @@
-GET http://localhost:5001/users
-
-
-
+GET http://localhost:5001/posts
+Authorization: Bearer
+yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3VsdGFuIiwiaWF0IjoxNzg1MjU5MjcyfQ.ylDFsOsyUjGgWL61fEOqG47WOXdfQ-pD72si8dBjEbY
 ###
-POST http://localhost:5001/users
+POST http://localhost:5001/login
 Content-Type: application/json
+
 {
-  "name":"David",
-  "password":"Sultan204"
+  "username":"Sultan"
 }
 
 ###
@@ -17,3 +16,7 @@ Content-Type: application/json
   "name":"David",
   "pass":"Sultan204"
 }
+
+###
+
+GET http://localhost:3000/api/admin/event/

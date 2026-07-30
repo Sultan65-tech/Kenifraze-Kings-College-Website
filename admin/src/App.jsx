@@ -24,13 +24,13 @@ import ArtistPage from "./pages/ArtistPage";
 import EditArtist from "./pages/EditArtist";
 
 const App = () => {
-	const { admin, checkAuth, isAdmin } = useAuth();
-	useEffect(() => {
-		checkAuth();
-		if (!isAdmin) {
-			<Navigate to="/admin-login" replace />;
-		}
-	}, [admin, isAdmin, checkAuth]);
+	 const { admin, checkAuth, isAdmin } = useAuth();
+	// useEffect(() => {
+	// 	checkAuth();
+	// 	if (!isAdmin) {
+	// 		<Navigate to="/admin-login" replace />;
+	// 	}
+	// }, [admin, isAdmin, checkAuth]);
 
 	return (
 		<Router>
@@ -38,102 +38,76 @@ const App = () => {
 				<Route
 					path="/"
 					element={
-						<IsAdmin>
+						
 							<Layout />
-						</IsAdmin>
+
 					}
 				>
 					<Route
 						index
 						path=""
 						element={
-							<IsAdmin>
 								<Dashboard />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="users"
 						element={
-							<IsAdmin>
 								<Customer />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="promotions"
 						element={
-							<IsAdmin>
 								<Promotion />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="add-artist"
 						element={
-							<IsAdmin>
 								<AddArtist />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="artists"
 						element={
-							<IsAdmin>
 								<ArtistPage />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="edit-artist"
 						element={
-							<IsAdmin>
 								<EditArtist />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="edit-hero"
 						element={
-							<IsAdmin>
 								<AddHero />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="edit-contact"
 						element={
-							<IsAdmin>
 								<AddContact />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="edit-logo"
 						element={
-							<IsAdmin>
 								<AddLogo />
-							</IsAdmin>
 						}
 					/>
 					<Route
 						path="food-items"
 						element={
-							<IsAdmin>
 								<Foods />
-							</IsAdmin>
 						}
 					/>
 				</Route>
 				<Route
-					path="/admin-login"
-					element={
-						admin && isAdmin ? (
-							<Navigate to="/" replace />
-						) : (
-							<Login />
-						)
-					}
+					path="/"
+					element={<Dashboard/>}
 				/>
 				<Route
 					path="/reset-password"

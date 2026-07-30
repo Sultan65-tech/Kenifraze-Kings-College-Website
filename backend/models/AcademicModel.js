@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 // Academics
-const AcademicSchema = {
-  name:String,
-  image:String,
-  title:String,
-  info:String
-}
+const academicSchema =new mongoose.Schema({
+  title:{type:String,required:true},
+  description:{type:String,required:true},
+  category:{type:String,required:true},
+  imageUrl:{type:String,required:true}
+},{timestamps:true})
 
 
 
-const Academic = mongoose.model("Academic",AcademicSchema)
+const Academic = mongoose.model("Academic",academicSchema)
 
 export default Academic

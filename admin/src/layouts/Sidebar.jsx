@@ -129,11 +129,11 @@ const Sidebar = () => {
 					</span>{" "}
 					<span className="nav-text">Edit Contact</span>
 				</NavLink>
-				{/*
+				
 				<NavLink
 					onClick={setMenu}
 					to="edit-about"
-					className={`nav-item ${path === "/edit-about" ? "active" : ""}`}
+					className={`nav-item ${path === "/instructor" ? "active" : ""}`}
 				>
 					<span>
 						<MdInfoOutline
@@ -141,9 +141,9 @@ const Sidebar = () => {
 							style={{ marginTop: ".3rem" }}
 						/>
 					</span>{" "}
-					<span className="nav-text">Edit About </span>
+					<span className="nav-text">Instructors </span>
 				</NavLink>
-				*/}
+				
 				{/*
 				<NavLink
 					onClick={setMenu}
@@ -164,7 +164,7 @@ const Sidebar = () => {
 					<span>
 						<BsCartCheck size={20} style={{ marginTop: ".3rem" }} />
 					</span>{" "}
-					<span className="nav-text">Promotions</span>
+					<span className="nav-text">Donations</span>
 				</NavLink>
 				{/*
 				<NavLink
@@ -227,7 +227,7 @@ const Sidebar = () => {
 							style={{ marginTop: ".3rem" }}
 						/>
 					</span>{" "}
-					<span className="nav-text">Artists</span>
+					<span className="nav-text"> Events</span>
 				</NavLink>
 				<NavLink
 					onClick={setMenu}
@@ -240,7 +240,7 @@ const Sidebar = () => {
 							style={{ marginTop: ".3rem" }}
 						/>
 					</span>{" "}
-					<span className="nav-text">Users</span>
+					<span className="nav-text">Academics</span>
 				</NavLink>
 				{/*
 				<NavLink
