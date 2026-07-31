@@ -16,7 +16,7 @@ export const getEvent = async(req,res)=>{
 export const getOneEvent = async(req,res)=>{
   try {
       const Id = req.params.title;
-    const FoundEvent = await Event.find({title:req.params.eventTitle})
+    const FoundEvent = await Event.find({title:req.params.eventTitle}).sort({"timestamp":-11})
     //console.log(req.params.eventTitle);    
     res.status(200).send(FoundEvent)
   } catch (error) {
@@ -28,8 +28,8 @@ export const getOneEvent = async(req,res)=>{
 // Posting EVent
 export const postEvent = (req,res)=>{
 try {
-   const newEvent = req.body
-    Event.insertOne(newEvent)
+   const newEvent = req.body;
+   Event.insertOne(newEvent)
     res.send(`${newEvent.title} event added Successfully`)
   } catch (error) {
     console.log(error);
