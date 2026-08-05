@@ -227,7 +227,7 @@ const Sidebar = () => {
 							style={{ marginTop: ".3rem" }}
 						/>
 					</span>{" "}
-					<span className="nav-text"> Events</span>
+					<span className="nav-text"> Instructor</span>
 				</NavLink>
 				<NavLink
 					onClick={setMenu}

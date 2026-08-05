@@ -1,5 +1,5 @@
 import Instructor from "../models/InstructorModel.js"
-
+import upload from "../middlewares/uploadMiddlewares.js"
 export const getInstructor = async(req,res)=>{
 try {
     const FoundInstructor = await Instructor.find()
@@ -22,17 +22,24 @@ try {
 //   console.log(error);
 //  }
 // }
-export const postInstructor = (req,res)=>{
+export const postInstructor = (upload.single("image"),async(req,res)=>{
 try {
-   const newInstructor = req.body
-    Instructor.insertOne(newInstructor)
+     const {name,subject,bio,ImageUrl} = req.body;
+       const imageUrl = req.file ? req.file.path : null;
+       const newInstructor = new Instructor({
+        ImageUrl:imageUrl,
+        name,
+        subject,
+        bio,
+       })
+       await newInstructor.save()
     res.send(`${newInstructor.name}  added Successfully`)
   } catch (error) {
     console.log(error);
     res.status(500).send("Error in Post Event Controller",error)
     
   }
-}
+})
 
 export const putInstructor = (req,res)=>{
     try {

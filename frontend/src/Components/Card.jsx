@@ -9,7 +9,7 @@ const Card = (props)=>{
             <img src={current_image} onClick={()=>{setActiveImage(current_image)}}/>
             <div className="activity-content">
                 <h3>{props.title}</h3>
-                <p>{props.content}</p>
+                <p>{props.desc}</p>
                 <a href="#">Learn More →</a>
             </div>
             

@@ -3,7 +3,7 @@ import Floating from "./Floating"
 import { useState } from "react"
 const Eventcard = (props)=>{
     const [activeImage,setActiveImage] = useState(null)
-    const current_image = props.img;
+    const current_image = props.ImageUrl;
     return (
         <>
    
@@ -12,14 +12,13 @@ const Eventcard = (props)=>{
 
             <div className="event-content">
                 <div className="event-date">
-                    15 June, 2026
+                  {props.date}
                 </div>
 
-                <h3>Graduation Ceremony 2026</h3>
+                <h3>{props.title}</h3>
 
                 <p>
-                    Celebrating the achievements of our graduating students
-                    as they move to the next phase of their journey.
+                {props.desc}
                 </p>
                 <a href="#">Read More →</a>
             </div>

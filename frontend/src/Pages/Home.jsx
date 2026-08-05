@@ -7,6 +7,13 @@ import Contact from "../Components/Contact"
 import Footer from "../Components/Footer"
 import Floating from "../Components/Floating"
 import Entertain from "../Components/Entertain"
+import { Events } from "../../mockup/Data"
+
+// Set length for the data
+Events.length=3;
+
+
+
 const Home = ()=>{
     const handleShow = (event)=>{
         // alert("event.target.value")
@@ -107,10 +114,14 @@ const Home = ()=>{
     </div>
 
  <div className="events-grid">
-<Eventcard img="./IMAGES/graduation.jpg" date=" 15 June, 2026" title="Graduation Ceremony 2026" text="Celebrating the achievements of our graduating students as they move to the next phase of their journey."/>
-<Eventcard img="./IMAGES/program.jpg" date=" 08 June, 2026" title="Annual Inter-House Sports" text=" Students showcased their athletic talents in various sporting competitions and team events."/>
-<Eventcard img="./IMAGES/graduands.jpg" date="  02 June, 2026" title="Science & Innovation Fair" text="   Students presented creative projects and innovative solutions to real-world challenges"/>
+    {
+        Events.map((event)=>{
+            return(
 
+<Eventcard img={event.ImageUrl} date={event.date} title={event.title} desc={event.description}/>
+            )
+        })
+    }
  </div>
  <div className="activity-btn">
         <Link to="/events">View All Activities</Link>

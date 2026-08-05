@@ -2,6 +2,7 @@ import Navbar from "../Components/Navbar"
 import Hero from "../Components/Hero"
 import Footer from "../Components/Footer"
 import Card from "../Components/Card"
+import {Academics} from "../../mockup/Data.js"
 import "../styles/App.css"
 const Academics = ()=>{
  return (
@@ -24,6 +25,11 @@ const Academics = ()=>{
     </div>
 </div>
   <div className="activities-grid">
+    {
+      Academics.map((academic)=>{
+        <Card title={academic.title}  img={academic.ImageUrl} desc={academic.description} />
+      })
+    }
 
        <Card img="./IMAGES/science.jfif" title="Science Club" content="Encouraging curiosity and innovation through experiments, projects and exhibitions."/>
        <Card img="./IMAGES/singing_student.png" title="Music & Drama" content="    Nurturing creativity and expression through music,dance and stage performances."/>

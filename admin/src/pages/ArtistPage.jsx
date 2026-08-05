@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+	import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/customer.style.css";
 import useArtist from "../store/useArtist";
@@ -13,7 +13,7 @@ import PopupWindow from "../components/PopupWindow";
 
 const ArtistPage = () => {
 	document.title =
-		"Artists Management -All  Bizz Entertainment Admin Dashboard";
+		"Data Management -Kenifraze Kings College Admin Dashboard";
 	const {
 		artists,
 		loading,
@@ -80,7 +80,7 @@ const ArtistPage = () => {
 				<div className="container">
 					<div className="page-header">
 						<h1 className="page-title">
-							All Artists - ({totalArtist})
+							All Teachers - ({totalArtist})
 						</h1>
 					</div>
 					<div className="controls">
@@ -121,7 +121,7 @@ const ArtistPage = () => {
 							}}
 						>
 							<span>+</span>
-							<span>Add Artist</span>
+							<span>Add Teacher</span>
 						</button>
 					</div>
 					{/*---> Desktop Tables <----*/}
@@ -130,8 +130,8 @@ const ArtistPage = () => {
 							<thead>
 								<tr>
 									<th>Index ID</th>
-									<th>Artist Image</th>
-									<th>Artist Name</th>
+									<th>Teacher Image</th>
+									<th>Teacher Name</th>
 									<th>Phone/Contact</th>
 									<th>Email Address</th>
 									<th>Action/Manage</th>

@@ -18,16 +18,16 @@ const AddArtist = () => {
 	const validate = () => {
 		const newErrors = {};
 		if (!image) {
-			showMsg("Artist image required", false);
+			showMsg("Teacher image required", false);
 			return false;
 		} else if (!name || name === "") {
-			showMsg("Artist name required", false);
+			showMsg("Teacher name required", false);
 			return false;
 		} else if (!email || email === "") {
-			showMsg("Artist email required", false);
+			showMsg("Teacher email required", false);
 			return false;
 		} else if (!phone) {
-			showMsg("Artist phone required", false);
+			showMsg("Teacher phone required", false);
 			return false;
 		} else if (!privacy.trim()) {
 			showMsg("Bio data is required", false);
@@ -86,14 +86,14 @@ const AddArtist = () => {
 			<div id="addm--food" className="container">
 				<div className="form-container">
 					<div className="form-header">
-						<h2>Add An Artist</h2>
+						<h2>Add A Teacher</h2>
 						<p ref={msgRef}></p>
 					</div>
 
 					<div className="form-body">
 						<form onSubmit={handleSubmit}>
 							<div className="form-group">
-								<label>Select Artists Image</label>
+								<label>Select Teacher Image</label>
 								{preview &&
 								<img
 									style={{
@@ -122,38 +122,38 @@ const AddArtist = () => {
 								/>
 							</div>
 							<div className="form-group">
-								<label>Enter Artist Name</label>
+								<label>Enter Teacher Name</label>
 								<input
 									type="text"
 									name="name"
-									placeholder="Enter artists name"
+									placeholder="Enter teachers name"
 									onChange={e => setName(e.target.value)}
 									value={name}
 								/>
 							</div>
 							<div className="form-group">
-								<label>Artist Contact Number</label>
+								<label>Teacher Contact Number</label>
 								<input
 									type="tel"
 									name="tel"
-									placeholder="Enter artists number"
+									placeholder="Enter teachers number"
 									onChange={e => setPhone(e.target.value)}
 									value={phone}
 								/>
 							</div>
 							<div className="form-group">
-								<label>Artist Email Address</label>
+								<label>Teacher Email Address</label>
 								<input
 									type="email"
 									name="email"
-									placeholder="Enter artists email"
+									placeholder="Enter teachers email"
 									onChange={e => setEmail(e.target.value)}
 									value={email}
 								/>
 							</div>
 							<div className="form-group">
 								<label>
-									Write Bio Data About Artist
+									Write Bio Data About Teacher
 									<span style={{ color: "#ef4444" }}>*</span>
 								</label>
 								<textarea

@@ -523,7 +523,7 @@ body{
 }
 
 .academic-card{
-    background:#000000;
+    background:var(--light);
     padding:35px;
     border-radius:20px;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
@@ -1108,4 +1108,6 @@ footer p{
         grid-template-columns:1fr;
     }
 }
+
+
 
