@@ -1,4 +1,3 @@
-import img from "../public/IMAGES/BigDaddy.jpg"
 
 export const Events =[
         {
@@ -7,7 +6,7 @@ export const Events =[
             description:"15th Graduation Ceremony at KKC is about to be Down.Get ready!!!",
             date:"16-06-2008",
             location:"School Compound",
-            ImageUrl:img
+            ImageUrl:"./IMAGES/singing_student.png"
         },
           {
             id:2,
@@ -15,7 +14,7 @@ export const Events =[
             description:"15th Graduation Ceremony at KKC is about to be Down.Get ready!!!",
             date:"16-06-2008",
             location:"School Compound",
-            ImageUrl:img
+            ImageUrl:"./IMAGES/singing_student.png"
         },
           {
             id:3,
@@ -23,7 +22,7 @@ export const Events =[
             description:"15th Graduation Ceremony at KKC is about to be Down.Get ready!!!",
             date:"16-06-2008",
             location:"School Compound",
-            ImageUrl:img
+            ImageUrl:"./IMAGES/singing_student.png"
         },
         {
             id:4,
@@ -31,7 +30,7 @@ export const Events =[
             description:"15th Graduation Ceremony at KKC is about to be Down.Get ready!!!",
             date:"16-06-2008",
             location:"School Compound",
-            ImageUrl:img
+            ImageUrl:"./IMAGES/singing_student.png"
         },
           {
             id:5,
@@ -39,7 +38,7 @@ export const Events =[
             description:"15th Graduation Ceremony at KKC is about to be Down.Get ready!!!",
             date:"16-06-2008",
             location:"School Compound",
-            ImageUrl:img
+            ImageUrl:"./IMAGES/singing_student.png"
         },
          {
             id:6,
@@ -47,7 +46,7 @@ export const Events =[
             description:"15th Graduation Ceremony at KKC is about to be Down.Get ready!!!",
             date:"16-06-2008",
             location:"School Compound",
-            ImageUrl:img
+            ImageUrl:"./IMAGES/singing_student.png"
         },
          {
             id:7,
@@ -55,11 +54,11 @@ export const Events =[
             description:"15th Graduation Ceremony at KKC is about to be Down.Get ready!!!",
             date:"16-06-2008",
             location:"School Compound",
-            ImageUrl:img
+            ImageUrl:"./IMAGES/singing_student.png"
         },
 ]
 
-const Academics = [
+export const Academic = [
     {
         title:"Admission",
         description:"2025 admission is on going for both college and primary school.",
@@ -70,7 +69,13 @@ const Academics = [
         title:"Admission",
         description:"2025 admission is on going for both college and primary school.",
         category:"Announcement",
-        ImageUrl:"./IMAGES/science.jfif"
+        ImageUrl:"./IMAGES/singing_student.png"
+    },
+      {
+        title:"Admission",
+        description:"2025 admission is on going for both college and primary school.",
+        category:"Announcement",
+        ImageUrl:"./IMAGES/football-removebg-preview.png"
     },
       {
         title:"Admission",
@@ -83,5 +88,5 @@ const Academics = [
         description:"2025 admission is on going for both college and primary school.",
         category:"Announcement",
         ImageUrl:"./IMAGES/science.jfif"
-    }
+    },
 ]

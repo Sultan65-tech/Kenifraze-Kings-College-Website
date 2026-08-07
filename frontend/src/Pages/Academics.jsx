@@ -2,9 +2,11 @@ import Navbar from "../Components/Navbar"
 import Hero from "../Components/Hero"
 import Footer from "../Components/Footer"
 import Card from "../Components/Card"
-import {Academics} from "../../mockup/Data.js"
+import {Academic} from "../../mockup/Data.js"
 import "../styles/App.css"
+import { useState } from "react"
 const Academics = ()=>{
+  const [academics,setAcademics] = useState([])
  return (
 <>
 <Navbar/>
@@ -26,17 +28,17 @@ const Academics = ()=>{
 </div>
   <div className="activities-grid">
     {
-      Academics.map((academic)=>{
-        <Card title={academic.title}  img={academic.ImageUrl} desc={academic.description} />
+      Academic.map((academic)=>{
+        return (
+        <Card key={academic.id} title={academic.title}  img={academic.ImageUrl} desc={academic.description} />
+        )
       })
     }
+{/* 
+       <Card img="./IMAGES/science.jfif" title="Science Club" desc="Encouraging curiosity and innovation through experiments, projects and exhibitions."/>
+       <Card img="./IMAGES/singing_student.png" title="Music & Drama" desc="    Nurturing creativity and expression through music,dance and stage performances."/>
+       <Card img="./IMAGES/football-removebg-preview.png" title="Sports" desc=" Building teamwork, discipline and resilience through indoor and outdoor sporting activities."/> */}
 
-       <Card img="./IMAGES/science.jfif" title="Science Club" content="Encouraging curiosity and innovation through experiments, projects and exhibitions."/>
-       <Card img="./IMAGES/singing_student.png" title="Music & Drama" content="    Nurturing creativity and expression through music,dance and stage performances."/>
-       <Card img="./IMAGES/football-removebg-preview.png" title="Sports" content=" Building teamwork, discipline and resilience through indoor and outdoor sporting activities."/>
-       <Card img="./IMAGES/COVER5.jpeg" title="Clubs & Societies" content="Developing leadership and communication skills through various student clubs."/>
-       {/* <Card img="./IMAGES/singing_student.png" title="Music & Drama" content=""/>
-       <Card img="./IMAGES/singing_student.png" title="Music & Drama" content=""/> */}
 
 </div>
  </section>

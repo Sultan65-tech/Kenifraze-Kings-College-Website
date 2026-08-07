@@ -14,11 +14,15 @@ export const getEvent = async(req,res)=>{
 // Getting Specific Event
 export const getOneEvent = async(req,res)=>{
   try {
-      const Id = req.params.eventTitle;
-    const FoundEvent = await Event.find({title:req.params.eventTitle}).sort(-1)
-    //console.log(req.params.eventTitle);    
-    res.status(200).send(FoundEvent)
-  } catch (error) {
+      const Id = req.params.id;
+    const FoundEvent = await Event.findOne({_id:req.params.id})
+    if (!FoundEvent) {
+      return res.status(404).json({ error: "Event not found" });
+    }else{
+      console.log("Found Event:", FoundEvent);
+      res.status(200).send(FoundEvent)   
+  } 
+}catch (error) {
     res.send("Error fetching :" +  error)
   }
 }
@@ -27,28 +31,35 @@ export const getOneEvent = async(req,res)=>{
 // Posting EVent
 export const postEvent = (async(req,res)=>{
 try {
-   const {title,description,date,location,ImageUrl} = req.body;
+   const {title,description,date, location,ImageUrl} = req.body;
    const imageUrl = req.file ? req.file.path : null;
+   //logging the received data for debugging
+   console.log("Received data:", { title, description, date, location, imageUrl });
    const newEvent = new Event({
     title,
     description,
     date,
-    location,
+     location,
     ImageUrl:imageUrl
    })
    await newEvent.save()
     res.send("Event added Successfully")
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error in Post Event Controller",error)
-    
+    if (error.code === 11000) {
+      console.log("Event with the title already exist");
+      res.status(409).json({error:"Event with the same title already exists."})
+    }else{
+      res.status(500).send("Error in Post Event Controller",error)
+    }
   }
 })
 
 // Updating Event 
 export const putEvent = async(req,res)=>{
 try {
-  const { title, description, date, location } = req.body;
+  const id = req.params.id;
+  const { title, description, date,  location } = req.body;
 
     // 1. Find existing record first
     const existingEvent = await Event.findById(id);
@@ -64,7 +75,7 @@ try {
     existingEvent.title = title || existingEvent.title;
     existingEvent.description = description || existingEvent.description;
     existingEvent.date = date || existingEvent.date;
-    existingEvent.location = location || existingEvent.location;
+    existingEvent. location =  location || existingEvent. location;
     existingEvent.image = imageUrl;
 
     const updatedEvent = await existingEvent.save();
@@ -79,18 +90,40 @@ try {
 }
 
 
+// Updating Event by specific field
+
+export const patchEvent= async(req,res)=>{
+  try{
+    const Id = req.params.id;
+  const {title,description,date,location} = req.body;
+   const findEvent = await Event.findById(Id)
+   if(!findEvent){
+    return res.status(404).send("Event not found")
+   }
+   const imageUrl = req.file ? req.file.path : findEvent.ImageUrl;
+   const updatedEvent = await Event.findByIdAndUpdate(Id,{
+    title:title,
+    description:description,
+    date:date,
+    location:location,
+    ImageUrl:ImageUrl
+   })
+  }catch(error){ 
+  res.send("Error in patch Event Controller : ",error)
+}
+}
+
+
 
 // Deleting specific Event
 export const deleteOneEvent = async(req,res)=>{
   try {
-    const event = req.params.eventTitle;
-    const DeletedEvent = await Event.deleteOne({title:event}) 
+    const Id = req.params.id;
+    const DeletedEvent = await Event.deleteOne({_id:Id}) 
     res.status(200).send("Event Deleted Successfully !!!")
   } catch (error) {
     res.send("Error deleting event : " + error)
   }
-
-
 }
 
 
@@ -99,7 +132,6 @@ export const deleteOneEvent = async(req,res)=>{
   // Deleting All
   export const deleteAllEvent = async(req,res)=>{
       try{
-          const event = req.params.eventTitle;
           const Delete = await Event.deleteMany()
           res.send("Deleted Successfully")
       }catch(error){

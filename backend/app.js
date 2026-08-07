@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import EventsRoutes from "./routes/EventsRoutes.js"
 import AcademicRoutes from "./routes/AcademicRoutes.js"
 import InstructorRoutes from "./routes/InstructorRoute.js"
+import PaymentRoutes from "./routes/PaymentRoutes.js"
 import "dotenv/config"
 
 import cors from "cors"
@@ -13,7 +14,7 @@ import cors from "cors"
 app.use("/api/admin/event",EventsRoutes)
 app.use("/api/admin/academic",AcademicRoutes)
 app.use("/api/admin/instructor",InstructorRoutes)
-
+app.use("/api/payment",PaymentRoutes)
 
 
 

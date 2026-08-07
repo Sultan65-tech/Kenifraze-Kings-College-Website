@@ -38,7 +38,7 @@ return (
     {
         Events.map((event)=>{
           return(
-              <Eventcard img={event.ImageUrl} date={event.date} title={event.title} desc={event.description}/>
+              <Eventcard key={event.id} img={event.ImageUrl} date={event.date} title={event.title} desc={event.description}/>
           )
         })
     }

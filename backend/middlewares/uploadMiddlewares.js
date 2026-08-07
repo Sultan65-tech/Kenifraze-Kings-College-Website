@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: "uploads", // Specify the folder in Cloudinary where files will be stored
-        allowed_formats: ["jpg", "jpeg", "png", "webp"] // Specify allowed file formats
+        allowed_formats: ["jpg", "jpeg", "png", "webp","jfif"] // Specify allowed file formats
     }
 });
 

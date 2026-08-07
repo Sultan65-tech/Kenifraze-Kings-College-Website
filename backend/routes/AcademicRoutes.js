@@ -1,11 +1,15 @@
 import express from "express"
-import { deleteAcademic, getAcademic,getOneAcademic, postAcademic, updateAcademic } from "../controller/academicController.js"
+import { deleteAcademic, getAcademic,getOneAcademic, postAcademic, updateAcademic, UpdateSpecific } from "../controller/academicController.js"
+import upload from "../middlewares/uploadMiddlewares.js"
 const router = express.Router()
 
 router.get("/",getAcademic)
-router.get("/:academicTitle",getOneAcademic)
-router.post("/",postAcademic)
-router.put("/:academicTitle",updateAcademic)
-router.delete("/:academicTitle",deleteAcademic)
+router.get("/:id",getOneAcademic)
+router.post("/",upload.single("ImageUrl"),postAcademic)
+router.put("/:id",upload.single("ImageUrl"),updateAcademic)
+router.patch("/:id",upload.single("ImageUrl"),UpdateSpecific)
+router.delete("/:id",deleteAcademic)
+
+
 
 export default router
