@@ -52,29 +52,49 @@ export const postAcademic = async(req,res)=>{
 }
    }
 
+   
+
 // Updating Academic
 
 export const updateAcademic = async(req,res)=>{
    try {
-     const UpdatedAcademic = await academic.updateOne({_id:req.params.id},{
-        title:req.body.name,
-        description:req.body.description,
-        category:req.body.info,
-
-     })
-     updateacademic.save()
-    res.status(200).json(UpdatedAcademic)
+      const Id = req.params.id;
+      const {title,description,category,ImageUrl} = req.body;
+      // Find the existing academic post
+      const findacademic = await academic.findById(Id);
+      if (!findacademic) {
+         return res.status(404).json({message:"Academic Post not found"})
+      }
+      const imageUrl = req.file ? req.file.path : findacademic.ImageUrl;
+      const updateacademic = await academic.findByIdAndUpdate(Id,{
+         title,
+         description,
+         category,
+         ImageUrl:imageUrl
+      })
+      res.status(200).json(updateacademic)
    } catch (error) {
-    res.status(500).send("Error in update Academic Controller")
+      console.log("Error in Academic put controller" + error);
+      res.status(500).json({error:error})
    }
+   
 }
 
 // Update using patch
 export const UpdateSpecific = async(req,res)=>{
    try {
+      const {title,description,category,ImageUrl} = req.body;
       const Id = req.params.id;
-    const {title,description,category,ImageUrl} = req.body;
-    const findacademic = academic.findOneAndUpdate(Id)
+      const findacademic = await academic.findById(Id);
+    if (!findacademic) {
+      return res.status(404).json({message:"Academic Post not found"})
+    }
+    const imageUrl = req.file ? req.file.path : findacademic.ImageUrl;
+    const updatedAcademic = await academic.findByIdAndUpdate(Id,{
+     title,
+     description,
+     ImageUrl:imageUrl
+    })
    } catch (error) {
       console.log("Error in Academic patch controller" + error);
       res.status(500).json({error:error})

@@ -3,7 +3,7 @@ import Floating from "./Floating"
 import { useState } from "react"
 const Eventcard = (props)=>{
     const [activeImage,setActiveImage] = useState(null)
-    const current_image = props.ImageUrl;
+    const current_image = props.img;
     return (
         <>
    

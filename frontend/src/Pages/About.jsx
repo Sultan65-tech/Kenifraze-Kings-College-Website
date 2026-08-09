@@ -1,81 +1,36 @@
+import { useState,useEffect } from "react"
+import axios from "axios"
 import NavBar from "../Components/Navbar"
 import Footer from "../Components/Footer"
 import Hero from "../Components/Hero"
 import InstructorCard from "../Components/InstructorCard"
 import "../styles/About.css";
-
+import Novalue from "../Components/Novalue.jsx"
+import Loader from "../Components/Loader.jsx"
 const About = ()=>{
-    const Data = [
-        {
-    id: 1,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-},
-   {
-    id: 2,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-},
-   {
-    id: 3,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-  },
-  {
-      id: 4,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-},
-{
-    id: 5,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-},
-{
-    id: 6,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-},
-{
-    id: 7,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-},
-{
-    id: 8,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-},
-{
-    id: 9,
-    image:"jj.jpg",
-    name: 'Dr. Marc Song',
-    subject:"Physics",
-    bio: 'Ph.D. in Applied Mathematics from MIT. Specializes in quantum mechanics and advanced calculus.'
-}
-];
-Data.length = 6;
+    const [data,setData]= useState([])
+    const [loading,setLoading] = useState(true)
+    useEffect(()=>{
+  async  function fetchData(){
+    try {
+        setLoading(true)
+         // ⏱️ FORCE A 2-SECOND DELAY TO VIEW THE LOADER
+            await new Promise((resolve) => setTimeout(resolve, 3000))
+        const res = await axios.get("http://localhost:5000/api/admin/instructor")
+    setData(res.data)
+    } catch (error) {
+        console.log("Error fetching :" + error); 
+    }finally{
+        setLoading(false)
+    }
+    }
+    fetchData();
+    },  [])
  return (
 <>
 <NavBar/>
 
- <Hero/>
+ {/* <Hero/> */}
 
     <main>
       
@@ -102,11 +57,17 @@ Data.length = 6;
 
             <div className="faculty-grid">
                {
-                Data.map((teacher)=>{
+             loading ? (
+                <Loader/>
+             ): data.length === 0 ? (
+                <Novalue value="Teacher"/>
+             ):(
+                   data.map((teacher)=>{
                     return (
-                    <InstructorCard img={teacher.img} name={teacher.name} subject={teacher.subject} bio={teacher.bio} />
+                    <InstructorCard key={teacher._id} img={teacher.ImageUrl} name={teacher.name} subject={teacher.subject} bio={teacher.bio} />
                     )
                 })
+             )
                }
             </div>
         </section>

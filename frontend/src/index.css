@@ -350,12 +350,15 @@ body{
     background:#fff;
     border-radius:20px;
     overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
     transition:.4s;
+     box-shadow:0 30px 30px solid rgba(0,0,0,.08);
+     cursor: pointer;
+     filter: drop-shadow(8px 8px 16px solid black);
 }
 
 .activity-card:hover{
     transform:translateY(-10px);
+    box-shadow:10px 30px 30px rgba(0,0,0,.08);
 }
 
 .activity-card img{
@@ -970,27 +973,34 @@ footer p{
     .navbar{
         flex-direction:column;
         gap:15px;
+        border-bottom: 4px solid var(--accent);
+         box-shadow:30px 20px 10px rgba(0,0,0,0.08);
     }
-
+    
     .nav-links{
+        /* height: 60px; */
         flex-wrap:wrap;
         justify-content:center;
-        animation: spin 2s  linear infinite;
         position:relative;
-        transition: 2s ease-in;
-        /* display:none; */
-    
+        transition: 0.2s ease-in;
+        z-index: 1;
+        padding-top:5px;
     }
-    @keyframe spin{
-        from{
-           background-color:red;
-        }to{
-            background-color:blue;
-        }
-    }
-    .none{
+    .heighter{
+        position: absolute;
         display: none;
+        height: 300px;
+        transition: 0.1s ease-in-out;
     }
+    .donate{
+        position: relative;
+        top: 10px;
+        /* display:none; */
+    }
+    .hide{
+            display: none;
+    }
+
     .logo{
     position: relative;
     left: -15%;
@@ -1007,11 +1017,14 @@ footer p{
 }
 .menu{
     display: block;
-    position: absolute;
-    top:29%;
+    position:absolute;
+    top:12%;
     left:85%;
     z-index: 999;
     
+}
+ .burger{
+    color:#F55A28;
 }
 /* Carousel */
 

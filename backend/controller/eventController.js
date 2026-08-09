@@ -58,11 +58,11 @@ try {
 // Updating Event 
 export const putEvent = async(req,res)=>{
 try {
-  const id = req.params.id;
+  const Id = req.params.id;
   const { title, description, date,  location } = req.body;
 
     // 1. Find existing record first
-    const existingEvent = await Event.findById(id);
+    const existingEvent = await Event.findById(Id);
     if (!existingEvent) {
       return res.status(404).json({ error: "Event not found" });
     }
@@ -102,11 +102,11 @@ export const patchEvent= async(req,res)=>{
    }
    const imageUrl = req.file ? req.file.path : findEvent.ImageUrl;
    const updatedEvent = await Event.findByIdAndUpdate(Id,{
-    title:title,
-    description:description,
-    date:date,
-    location:location,
-    ImageUrl:ImageUrl
+    title,
+    description,
+    date,
+    location,
+    ImageUrl:imageUrl
    })
   }catch(error){ 
   res.send("Error in patch Event Controller : ",error)
