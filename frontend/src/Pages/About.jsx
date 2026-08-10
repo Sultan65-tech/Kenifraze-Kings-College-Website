@@ -7,25 +7,15 @@ import InstructorCard from "../Components/InstructorCard"
 import "../styles/About.css";
 import Novalue from "../Components/Novalue.jsx"
 import Loader from "../Components/Loader.jsx"
+import { useInstructor } from "../../hooks/useInstructor.js"
 const About = ()=>{
-    const [data,setData]= useState([])
-    const [loading,setLoading] = useState(true)
-    useEffect(()=>{
-  async  function fetchData(){
-    try {
-        setLoading(true)
-         // ⏱️ FORCE A 2-SECOND DELAY TO VIEW THE LOADER
-            await new Promise((resolve) => setTimeout(resolve, 3000))
-        const res = await axios.get("http://localhost:5000/api/admin/instructor")
-    setData(res.data)
-    } catch (error) {
-        console.log("Error fetching :" + error); 
-    }finally{
-        setLoading(false)
+    // Making API Calls
+    const {data:instructors,isloading}= useInstructor();
+    if(isloading){
+        return(
+            <Loader/>
+        )
     }
-    }
-    fetchData();
-    },  [])
  return (
 <>
 <NavBar/>
@@ -56,13 +46,10 @@ const About = ()=>{
             </div>
 
             <div className="faculty-grid">
-               {
-             loading ? (
-                <Loader/>
-             ): data.length === 0 ? (
+               {instructors?.length === 0 ? (
                 <Novalue value="Teacher"/>
              ):(
-                   data.map((teacher)=>{
+                   instructors?.map((teacher)=>{
                     return (
                     <InstructorCard key={teacher._id} img={teacher.ImageUrl} name={teacher.name} subject={teacher.subject} bio={teacher.bio} />
                     )

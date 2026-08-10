@@ -3,7 +3,9 @@ import Event from "../models/EventModel.js"
 // getting all Event 
 export const getEvent = async(req,res)=>{
   try {
-    const FoundEvent = await Event.find()
+      // Check limit
+    const limit  = req.query.limit ? Number(req.query.limit) : 0; // Default to 0 if not provided
+    const FoundEvent = await Event.find().sort({createdAt:-1}).limit(limit)
     res.status(200).json(FoundEvent)
   } catch (error) {
     console.log(error);
@@ -14,6 +16,7 @@ export const getEvent = async(req,res)=>{
 // Getting Specific Event
 export const getOneEvent = async(req,res)=>{
   try {
+  
       const Id = req.params.id;
     const FoundEvent = await Event.findOne({_id:req.params.id})
     if (!FoundEvent) {

@@ -1,4 +1,6 @@
 import {Link} from "react-router-dom"
+import { useEvents } from "../../hooks/useEvents"
+import {useAcademics } from "../../hooks/useAcademics"
 import Navbar from "../Components/Navbar"
 import Hero from "../Components/Hero"
 import Card from "../Components/Card"
@@ -7,14 +9,29 @@ import Contact from "../Components/Contact"
 import Footer from "../Components/Footer"
 import Floating from "../Components/Floating"
 import Entertain from "../Components/Entertain"
-import { Events } from "../../mockup/Data"
-
-// Set length for the data
-Events.length=3;
-
-
+import Loader from "../Components/Loader"
 
 const Home = ()=>{
+
+    // Tanstack query APi calls
+    const {data:academics,isLoadingAcademics} = useAcademics()
+    const {data:events,isLoading} = useEvents()
+    // console.log(data,data);
+    
+    // Limited API data
+     const limitedEvents = events?.slice(0, 3) //Limit of the Shown events
+     const limitedAcademics = academics?.slice(0, 3) //Limit of the shown Acadermic Post
+    //  Setting Loading State
+    if(isLoading){
+        return(
+       <Loader/>
+        )
+    }
+      if(isLoadingAcademics){
+        return(
+       <Loader/>
+        )
+    }
     const handleShow = (event)=>{
         // alert("event.target.value")
         console.log("nnn");
@@ -86,11 +103,14 @@ const Home = ()=>{
 
 {/* Card */}
   <div className="activities-grid">
+{
+    limitedAcademics.map((academic)=>{
+        return(
+ <Card key={academic._id} img={academic.ImageUrl} title={academic.title} content={academic.description}/>
+        )
+    })
+}
 
-       <Card img="./IMAGES/science.jfif" title="Science Club" content="Encouraging curiosity and innovation through experiments, projects and exhibitions."/>
-       <Card img="./IMAGES/singing_student.png" title="Music & Drama" content="    Nurturing creativity and expression through music,dance and stage performances."/>
-       <Card img="./IMAGES/football-removebg-preview.png" title="Sports" content=" Building teamwork, discipline and resilience through indoor and outdoor sporting activities."/>
-       
 
 </div>
   <div className="activity-btn">
@@ -115,10 +135,10 @@ const Home = ()=>{
 
  <div className="events-grid">
     {
-        Events.map((event)=>{
+        limitedEvents?.map((event)=>{
             return(
 
-<Eventcard img={event.ImageUrl} date={event.date} title={event.title} desc={event.description}/>
+<Eventcard key={event._id} img={event.ImageUrl} date={event.date} title={event.title} desc={event.description}/>
             )
         })
     }

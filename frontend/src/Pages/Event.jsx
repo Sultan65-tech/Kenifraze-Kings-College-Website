@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { useEvents } from "../../hooks/useEvents.js"
 import Navbar from "../Components/Navbar"
 import Hero from "../Components/Hero"
 import Eventcard from "../Components/Eventcard"
@@ -9,25 +10,12 @@ import Loader from "../Components/Loader.jsx"
 import "../styles/App.css"
 
 const Event = () => {
-    const [data, setData] = useState([])
+    // const [data, setData] = useState([])
     const [loading, setLoading] = useState(true) // 1. Start loading as true initially
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true)
-                // ⏱️ FORCE A 2-SECOND DELAY TO VIEW THE LOADER
-            await new Promise((resolve) => setTimeout(resolve, 4000))
-                const res = await axios.get("http://localhost:5000/api/admin/event")
-                setData(res.data)
-            } catch (error) {
-                console.error("Error fetching events:", error)
-            } finally {
-                setLoading(false) // 2. Stop loading when fetch completes or fails
-            }
-        }
-        fetchData()
-    }, [])
+        // Uses the useEvents hook to fetch events with a limit of 5
+        const {data:events,isLoading} = useEvents()
+
 
     return (
         <>
@@ -43,14 +31,10 @@ const Event = () => {
                     </p>
                 </div>
 
-                {/* 3. Conditional rendering in the JSX tree */}
-                {loading ? (
-                    <Loader />
-                ) : data.length === 0 ? (
-                    <Novalue value="Events" />
-                ) : (
+                {/* 3. Conditional rendering in the JSX tree */}              
+                  {
                     <div className="events-grid">
-                        {data.map((event) => (
+                        {events?.map((event) => (
                             <Eventcard 
                                 key={event._id} // 4. MongoDB uses _id instead of id
                                 img={event.ImageUrl} 
@@ -60,7 +44,7 @@ const Event = () => {
                             />
                         ))}
                     </div>
-                )}
+}
             </section>
             <Footer />
         </>

@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react"
+import { useAcademics } from "../../hooks/useAcademics.js"
 import axios from "axios"
 import Navbar from "../Components/Navbar"
 import Hero from "../Components/Hero"
@@ -9,24 +10,13 @@ import Novalue from "../Components/Novalue.jsx"
 import Loader from "../Components/Loader.jsx"
 
 const Academics = ()=>{
-  const [data,setData]= useState([])
   const [loading,setLoading]= useState(true)
-  useEffect(()=>{
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-             // ⏱️ FORCE A 2-SECOND DELAY TO VIEW THE LOADER
-            await new Promise((resolve) => setTimeout(resolve, 4000))
-        const res = await axios.get("http://localhost:5000/api/admin/academic");
-        setData(res.data);
-      } catch (error) {
-        console.log("Error while attempting to fetch :" + error );    
-    }finally{
-    setLoading(false)
-  }
+  const {data:academics,isloading} = useAcademics();
+if(isloading){
+  return(
+    <Loader/>
+  )
 }
-    fetchData();
-  },[])
  return (
 <>
 <Navbar/>
@@ -47,13 +37,8 @@ const Academics = ()=>{
     </div>
 </div>
   <div className="activities-grid">
- {
-  loading ? (
-    <Loader />
-  ) : data.length === 0 ? (
-    <Novalue value="Academics" />
-  ) : (
-    data.map((academic) => (
+   {
+    academics?.map((academic) => (
       <Card
         key={academic._id}
         img={academic.ImageUrl}
@@ -61,7 +46,7 @@ const Academics = ()=>{
         desc={academic.description}
       />
     ))
-  )
+  
  }
 {/* 
        <Card img="./IMAGES/science.jfif" title="Science Club" desc="Encouraging curiosity and innovation through experiments, projects and exhibitions."/>

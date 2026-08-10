@@ -5,15 +5,15 @@ import EventsRoutes from "./routes/EventsRoutes.js"
 import AcademicRoutes from "./routes/AcademicRoutes.js"
 import InstructorRoutes from "./routes/InstructorRoute.js"
 import PaymentRoutes from "./routes/PaymentRoutes.js"
-import "dotenv/config"
+import { configDotenv } from 'dotenv';
 
 import cors from "cors"
+app.use(express.json())
+app.use(cors())
 
- app.use(express.json())
- app.use(cors())
-app.use("/api/admin/event",EventsRoutes)
-app.use("/api/admin/academic",AcademicRoutes)
-app.use("/api/admin/instructor",InstructorRoutes)
+app.use("/api/admin/events",EventsRoutes)
+app.use("/api/admin/academics",AcademicRoutes)
+app.use("/api/admin/instructors",InstructorRoutes)
 app.use("/api/payment",PaymentRoutes)
 
 

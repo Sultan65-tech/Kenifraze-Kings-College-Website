@@ -4,7 +4,9 @@ import academic from "../models/AcademicModel.js"
 
 export const getAcademic = async(req,res)=>{
    try {
-     const FindAcademic = await academic.find();
+      // Check Limit
+      const limit = req.query.limit ? Number(req.query.limit) : 0;
+     const FindAcademic = await academic.find().sort({createdAt: -1}).limit(limit)
     res.status(200).json(FindAcademic)
    } catch (error) {
    res.status(500).send("Error in Get Academic Controller")

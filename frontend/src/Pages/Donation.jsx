@@ -1,4 +1,5 @@
 import { useState } from "react"
+import axios from "axios"
 // Styles
 import  "../styles/donation.css"
 
@@ -9,14 +10,37 @@ import NeedCard from "../Components/NeedCard"
 // Icons
 import { AiOutlineFork,AiOutlineBook } from "react-icons/ai"
 const Donation = () => {
-    const [amount, setAmount] = useState("")
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        // Add your form submission logic here
+    // Payment Data
+    const[formdata,setFormData] = useState({
+        donorfName:"",
+        donorlName:"",
+        email:"",
+        amount:"",
+    })
+    const [loading,setLoading] = useState(false)
+   
+    const handleChange = (e)=>{
+        const {name,value} = e.target;
+        setFormData({...formdata,[e.target.name]: e.target.value})
+    
+    };
+     const handleDonate = async (e) =>{
+        e.preventDefault();
+        setLoading(true);
+
+    try {
+        // Call the payment API
+        const response =  await axios.post("http://localhost:5000/api/payment/donate/initialize",formdata);
+        const {authorization_url,reference} = response.data
+    } catch (error) {
+        console.error("Initializing error",error);
+        alert(error.response?.data?.error || "Failed to initialize payment")
+    }finally{
+        setLoading(false)
     }
-    if(amount === String){
-        alert("Error")
-    }
+};
+
+
   return (
     <>
      <Navbar/>
@@ -130,36 +154,37 @@ const Donation = () => {
                 </div>
 
                 {/* <!-- Interactive Checkout Form Box --> */}
-                <div className="kkcf-form-box" onsubmit={handleSubmit}>
+
+                <div className="kkcf-form-box">
                     <h3 className="kkcf-form-title">Be the Reason a Child Never Gives Up</h3>
                     <p className="kkcf-form-subtitle">Secure Custom Donation Checkout</p>
                     
-                    <form id="kkcfCheckoutForm" onsubmit="handleKkcfSubmit(event)">
+                    <form id="kkcfCheckoutForm" onSubmit={handleDonate}>
                         <div className="kkcf-form-group">
                             <label className="kkcf-form-label">Gift Amount ($ USD)</label>
                             <div className="kkcf-input-wrapper">
                                 <span className="kkcf-input-icon">$</span>
-                                <input type="number" name="amount" id="kkcfInputAmount" min="5" max={"500"} value={amount} onChange={(e) => setAmount(e.target.value)} className="kkcf-input-amount" required/>
+                                <input type="number" name="amount" id="kkcfInputAmount"  className="kkcf-input-amount"/>
                             </div>
                         </div>
 
                         <div className="kkcf-form-row kkcf-form-group">
                             <div>
                                 <label className="kkcf-form-label">First Name</label>
-                                <input type="text" required className="kkcf-input-text"/>
+                                <input type="text" name="donorfName" value={formdata.donorfName} onChange={handleChange} className="kkcf-input-text"/>
                             </div>
                             <div>
                                 <label className="kkcf-form-label">Last Name</label>
-                                <input type="text" required className="kkcf-input-text"/>
+                                <input type="text" name="donorlName" value={formdata.donorlName} onChange={handleChange} className="kkcf-input-text"/>
                             </div>
                         </div>
 
                         <div className="kkcf-form-group">
                             <label className="kkcf-form-label">Email Address</label>
-                            <input type="email" required className="kkcf-input-text" placeholder="you@example.com"/>
+                            <input type="email" className="kkcf-input-text" value={formdata.email} onChange={handleChange} name="email" placeholder="you@example.com"/>
                         </div>
 
-                        <button type="submit" className="kkcf-btn-submit">Complete My Gift</button>
+                        <button type="submit" className="kkcf-btn-submit">{loading ? "Initializing.." : "Proceed to Pay"}</button>
                         
                         <div className="kkcf-secure-tag">
                             <i className="fa-solid fa-lock text-green-500"></i> Secure context enabled.

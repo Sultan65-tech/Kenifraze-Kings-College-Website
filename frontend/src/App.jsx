@@ -1,9 +1,10 @@
+import {Routes,Route} from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 import Home from "./Pages/Home"
 import About from "./Pages/About"
 import Academics from "./Pages/Academics"
 import Event from "./Pages/Event"
 import Donation from "./Pages/Donation"
-import {Routes,Route} from "react-router-dom"
 function App() {
 
   return (

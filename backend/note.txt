@@ -33,4 +33,65 @@
 // app.post("/api/admin", verifyToken,(req,res)=>{
 
 // res.json({message:"Event Successfully Created!"})
-// })
+// })import React, { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const VerifyDonation = () => {
+  const [searchParams] = useSearchParams();
+  const [status, setStatus] = useState('Verifying your payment, please wait...');
+  const navigate = useNavigate();
+
+  // Paystack appends ?reference=xxxx or ?trxref=xxxx to the callback URL
+  const reference = searchParams.get('reference') || searchParams.get('trxref') || localStorage.getItem('pending_donation_ref');
+
+  useEffect(() => {
+    const verifyPayment = async () => {
+      if (!reference) {
+        setStatus('No payment reference found.');
+        return;
+      }
+
+      try {
+        // Call your backend verify controller: GET /api/donations/verify/:reference
+        const res = await axios.get(`http://localhost:5000/api/donations/verify/${reference}`);
+
+        if (res.status === 200) {
+          setStatus('Payment Successful! Thank you for your donation.');
+          localStorage.removeItem('pending_donation_ref');
+          
+          // Optional: redirect home after 3 seconds
+          setTimeout(() => navigate('/'), 3000);
+        }
+      } catch (err) {
+        console.error('Verification error:', err);
+        setStatus('Payment verification failed or was canceled.');
+      }
+    };
+
+    verifyPayment();
+  }, [reference, navigate]);
+
+  return (
+    <div style={{ textAlign: 'center', padding: '50px' }}>
+      <h2>{status}</h2>
+    </div>
+  );
+};
+
+export default VerifyDonation;// Inside initializeDonation in your Express controller
+const paystackResponse = await axios.post(
+  'https://api.paystack.co/transaction/initialize',
+  {
+    email,
+    amount: amountInKobo,
+    metadata: { donorName },
+    callback_url: `${process.env.FRONTEND_URL}/donation/verify`, // e.g. http://localhost:5173/donation/verify
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${process.env.TEST_PAYSTACK_SECRET_KEY}`,
+      'Content-Type': 'application/json',
+    },
+  }
+);

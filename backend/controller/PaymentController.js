@@ -1,12 +1,15 @@
 import axios from 'axios';
 import Donation from "../models/PaymentModel.js";
-
+import { configDotenv } from 'dotenv';
 // 1. Initialize Payment
 export const initializeDonation = async (req, res) => {
   try {
-    const { email, amount, donorName } = req.body;
+    console.log(req.body.donorlName);
+    const {   donorfName,donorlName,email,amount } = req.body;
+    console.log(process.env.TEST_PAYSTACK_SECRET_KEY);
+    
 
-    if (!email || !amount || !donorName) {
+    if (!email || !amount || !donorfName || !donorlName) {
       return res.status(400).json({ error: "Email, amount, and donorName are required." });
     }
 
@@ -19,7 +22,7 @@ export const initializeDonation = async (req, res) => {
       {
         email,
         amount: amountInKobo,
-        metadata: { donorName },
+        metadata: {  donorfName,donorlName },
        // callback_url: `${process.env.FRONTEND_URL}/donation/verify`, // React redirect page
       },
       {
@@ -34,7 +37,8 @@ export const initializeDonation = async (req, res) => {
 
     // Save pending record to MongoDB
     await Donation.create({
-      donorName,
+       donorfName,
+      donorlName,
       email,
       amount: Number(amount),
       reference,
@@ -46,6 +50,8 @@ export const initializeDonation = async (req, res) => {
 
   } catch (error) {
     console.error("Paystack Init Error:", error.response?.data || error.message);
+    console.log(error);
+    
     res.status(500).json({ error: error.response?.data?.message || "Payment initialization failed." });
   }
 };
@@ -54,6 +60,10 @@ export const initializeDonation = async (req, res) => {
 export const verifyDonation = async (req, res) => {
   try {
     const { reference } = req.params;
+
+    // DEBUG LOGS
+    console.log("Extracted Reference:", reference);
+    console.log("Secret Key Loaded:", process.env.TEST_PAYSTACK_SECRET_KEY ? "YES" : "NO - KEY IS UNDEFINED");
 
     if (!reference) {
       return res.status(400).json({ error: "Transaction reference is required." });
@@ -65,6 +75,7 @@ export const verifyDonation = async (req, res) => {
       {
         headers: {
           Authorization: `Bearer ${process.env.TEST_PAYSTACK_SECRET_KEY}`,
+          "Content-Type":"application/json"
         },
       }
     );

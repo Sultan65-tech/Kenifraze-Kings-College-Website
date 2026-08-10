@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 const donationSchema = new mongoose.Schema({
-  donorName: { type: String, required: true },
+  donorfName: { type: String, required: true },
+  donorlName:{type:String,require:true},
   email: { type: String, required: true },
   amount: { type: Number, required: true }, // Saved in main currency unit (e.g. NGN)
   reference: { type: String, required: true, unique: true },
