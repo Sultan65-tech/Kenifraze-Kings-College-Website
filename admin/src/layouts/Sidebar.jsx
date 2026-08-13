@@ -144,18 +144,7 @@ const Sidebar = () => {
 					<span className="nav-text">Instructors </span>
 				</NavLink>
 				
-				{/*
-				<NavLink
-					onClick={setMenu}
-					to="total-earnings"
-					className={`nav-item ${path === "/total-earnings" ? "active" : ""}`}
-				>
-					<span>
-						<BsCartCheck size={20} style={{ marginTop: ".3rem" }} />
-					</span>{" "}
-					<span className="nav-text">Earnings</span>
-				</NavLink>
-				*/}
+			
 				<NavLink
 					onClick={setMenu}
 					to="promotions"
@@ -166,56 +155,8 @@ const Sidebar = () => {
 					</span>{" "}
 					<span className="nav-text">Donations</span>
 				</NavLink>
-				{/*
-				<NavLink
-					onClick={setMenu}
-					to="services"
-					className={`nav-item ${path === "/services" ? "active" : ""}`}
-				>
-					<span>
-						<CiDeliveryTruck
-							size={20}
-							style={{ marginTop: ".3rem" }}
-						/>
-					</span>{" "}
-					<span className="nav-text">Services</span>
-				</NavLink>
-				*/}
-				{/*
-				<NavLink
-					onClick={setMenu}
-					to="posts"
-					className={`nav-item ${path === "/posts" ? "active" : ""}`}
-				>
-					<span>
-						<GrBlog size={20} style={{ marginTop: ".3rem" }} />
-					</span>{" "}
-					<span className="nav-text">Posts</span>
-				</NavLink>
-				<NavLink
-					onClick={setMenu}
-					to="musics"
-					className={`nav-item ${path === "/musics" ? "active" : ""}`}
-				>
-					<span>
-						<RiMusicAiLine
-							size={20}
-							style={{ marginTop: ".3rem" }}
-						/>
-					</span>{" "}
-					<span className="nav-text">Tracks</span>
-				</NavLink>
-				<NavLink
-					onClick={setMenu}
-					to="photos"
-					className={`nav-item ${path === "/photos" ? "active" : ""}`}
-				>
-					<span>
-						<IoMdPhotos size={20} style={{ marginTop: ".3rem" }} />
-					</span>{" "}
-					<span className="nav-text">Images</span>
-				</NavLink>
-				*/}
+			
+			
 				<NavLink
 					onClick={setMenu}
 					to="artists"
@@ -242,21 +183,7 @@ const Sidebar = () => {
 					</span>{" "}
 					<span className="nav-text">Academics</span>
 				</NavLink>
-				{/*
-				<NavLink
-					onClick={setMenu}
-					to="genre"
-					className={`nav-item ${path === "/genre" ? "active" : ""}`}
-				>
-					<span>
-						<TbBrandCampaignmonitor
-							size={20}
-							style={{ marginTop: ".3rem" }}
-						/>
-					</span>{" "}
-					<span className="nav-text">Genres</span>
-				</NavLink>
-				*/}
+			
 				<NavLink
 					onClick={async e => {
 						e.preventDefault();

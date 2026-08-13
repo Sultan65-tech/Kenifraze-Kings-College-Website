@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 const DonationCard = (props) => {
   return (
    <>
@@ -9,7 +9,7 @@ const DonationCard = (props) => {
                             <div className="kkcf-tier-title">{props.title}</div>
                             <p className="kkcf-tier-desc">{props.desc}</p>
                         </div>
-                        <button type="button" onclick="selectKkcfAmount(25)" className="kkcf-tier-btn">Select</button>
+                        <Link to="/donate"><button type="button" onclick="selectKkcfAmount(25)" className="kkcf-tier-btn">Select</button></Link>
                           </div>
    </>
   )

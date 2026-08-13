@@ -3,35 +3,33 @@ import "../styles/add-food.style.css";
 import useContact from "../store/useContact";
 
 const AddContact = () => {
+		const {addContact,loading,error,successMessage} = useContact()
 	const [formData, setFormData] = useState({
-		openTime: "",
 		address: "",
 		phone: "",
 		email: "",
-		mapUrl: ""
+		school: "",
+		social:""
 	});
-
-	const { submitContact, fetchContact, contact, isFetching, isSubmit } =
-		useContact();
 
 	const [errors, setErrors] = useState({});
 	const msgRef = useRef(null);
 
-	useEffect(() => {
-		fetchContact();
-	}, []);
+	// useEffect(() => {
+	// 	fetchContact();
+	// }, []);
 
-	useEffect(() => {
-		if (!isFetching && contact) {
-			setFormData({
-				openTime: contact.openTime || "",
-				address: contact.address || "",
-				phone: contact.phone || "",
-				email: contact.email || "",
-				mapUrl: contact.mapUrl || ""
-			});
-		}
-	}, [contact, isFetching]);
+	// useEffect(() => {
+	// 	if (!isFetching && contact) {
+	// 		setFormData({
+	// 			address: contact.address || "",
+	// 			phone: contact.phone || "",
+	// 			email: contact.email || "",
+	// 			school: contact.school || "",
+	// 			social: contact.social || ""
+	// 		});
+	// 	}
+	// }, [contact, isFetching]);
 
 	const handleChange = e => {
 		const { name, value } = e.target;
@@ -40,24 +38,12 @@ const AddContact = () => {
 			...prev,
 			[name]: value
 		}));
-
-		if (errors[name]) {
-			setErrors(prev => ({
-				...prev,
-				[name]: ""
-			}));
-		}
 	};
 
 	const validate = () => {
 		const newErrors = {};
 
-		// Open Time
-		if (!formData.openTime.trim()) {
-			newErrors.openTime = "Open time is required";
-		} else if (formData.openTime.trim().length < 5) {
-			newErrors.openTime = "Enter a valid opening time";
-		}
+		
 
 		// Address
 		if (!formData.address.trim()) {
@@ -81,15 +67,17 @@ const AddContact = () => {
 		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
 			newErrors.email = "Enter a valid email address";
 		}
-
+       if (!formData.school.trim()) {
+		newErrors.school = "School Hours Is required"
+	   }
 		// Map URL
-		if (!formData.mapUrl.trim()) {
-			newErrors.mapUrl = "Map URL is required";
+		if (!formData.social.trim()) {
+			newErrors.social = "Map URL is required";
 		} else {
 			try {
-				new URL(formData.mapUrl.trim());
+				new URL(formData.social.trim());
 			} catch {
-				newErrors.mapUrl = "Enter a valid URL";
+				newErrors.social = "Enter a valid URL";
 			}
 		}
 
@@ -98,60 +86,39 @@ const AddContact = () => {
 		return Object.keys(newErrors).length === 0;
 	};
 
-	const showMsg = (msg, success) => {
-		if (!msgRef.current) return;
-
-		msgRef.current.className = success
-			? "success-message"
-			: "error-message";
-
-		msgRef.current.textContent = msg;
-
-		window.scrollTo({
-			top: 0,
-			behavior: "smooth"
-		});
-
-		setTimeout(() => {
-			if (msgRef.current) {
-				msgRef.current.className = "";
-				msgRef.current.textContent = "";
-			}
-		}, 2000);
-	};
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 
 		if (!validate()) {
-			showMsg("Please fix all validation errors.", false);
+			alert("Please fix all validation errors.", false);
 			return;
 		}
 
-		await submitContact(formData, showMsg);
+		await addContact(formData);
 	};
 
-	const resetForm = () => {
-		if (contact) {
-			setFormData({
-				openTime: contact.openTime || "",
-				address: contact.address || "",
-				phone: contact.phone || "",
-				email: contact.email || "",
-				mapUrl: contact.mapUrl || ""
-			});
-		} else {
-			setFormData({
-				openTime: "",
-				address: "",
-				phone: "",
-				email: "",
-				mapUrl: ""
-			});
-		}
+	// const resetForm = () => {
+	// 	if (contact) {
+	// 		setFormData({
+	// 			address: contact.address || "",
+	// 			address: contact.address || "",
+	// 			phone: contact.phone || "",
+	// 			email: contact.email || "",
+	// 			social: contact.social || ""
+	// 		});
+	// 	} else {
+	// 		setFormData({
+	// 			address: "",
+	// 			address: "",
+	// 			phone: "",
+	// 			email: "",
+	// 			social: ""
+	// 		});
+	// 	}
 
-		setErrors({});
-	};
+	// 	setErrors({});
+	// };
 
 	return (
 		<div className="main-content">
@@ -164,25 +131,7 @@ const AddContact = () => {
 
 					<div className="form-body">
 						<form onSubmit={handleSubmit}>
-							<div className="form-group">
-								<label>Open Times</label>
-								<input
-									type="text"
-									name="openTime"
-									value={formData.openTime}
-									onChange={handleChange}
-									placeholder={
-										isFetching
-											? "Loading..."
-											: "8:00AM - 8:00PM"
-									}
-								/>
-								{errors.openTime && (
-									<small className="field-error">
-										{errors.openTime}
-									</small>
-								)}
-							</div>
+					
 
 							<div className="form-group">
 								<label>Address</label>
@@ -191,11 +140,7 @@ const AddContact = () => {
 									name="address"
 									value={formData.address}
 									onChange={handleChange}
-									placeholder={
-										isFetching
-											? "Loading..."
-											: "Washington DC, New York City"
-									}
+									placeholder="Washington DC, New York City"
 								/>
 								{errors.address && (
 									<small className="field-error">
@@ -205,17 +150,13 @@ const AddContact = () => {
 							</div>
 
 							<div className="form-group">
-								<label>Contact Number</label>
+								<label>Phone Number</label>
 								<input
 									type="text"
 									name="phone"
 									value={formData.phone}
 									onChange={handleChange}
-									placeholder={
-										isFetching
-											? "Loading..."
-											: "+88013******"
-									}
+									placeholder= "+88013******"
 								/>
 								{errors.phone && (
 									<small className="field-error">
@@ -231,11 +172,7 @@ const AddContact = () => {
 									name="email"
 									value={formData.email}
 									onChange={handleChange}
-									placeholder={
-										isFetching
-											? "Loading..."
-											: "contact@example.com"
-									}
+									placeholder="contact@example.com"
 								/>
 								{errors.email && (
 									<small className="field-error">
@@ -243,50 +180,54 @@ const AddContact = () => {
 									</small>
 								)}
 							</div>
-
 							<div className="form-group">
-								<label>Map URL</label>
+								<label>School Hours</label>
 								<input
 									type="text"
-									name="mapUrl"
-									value={formData.mapUrl}
+									name="school"
+									value={formData.school}
 									onChange={handleChange}
-									placeholder={
-										isFetching
-											? "Loading..."
-											: "https://maps.google.com/..."
-									}
+									placeholder="8Am-4Pm"
 								/>
-								{errors.mapUrl && (
+								{errors.school && (
 									<small className="field-error">
-										{errors.mapUrl}
+										{errors.school}
+									</small>
+								)}
+							</div>
+
+							<div className="form-group">
+								<label>Social Url</label>
+								<input
+									type="text"
+									name="social"
+									value={formData.social}
+									onChange={handleChange}
+									placeholder= "https://maps.google.com/..."
+								
+								/>
+								{errors.social && (
+									<small className="field-error">
+										{errors.social}
 									</small>
 								)}
 							</div>
 
 							<div className="actions">
-								<button
+								{/* <button
 									type="button"
 									className="btn btn-reset"
 									onClick={resetForm}
 									disabled={isSubmit}
 								>
 									Reset
-								</button>
+								</button> */}
 
 								<button
 									type="submit"
 									className="btn btn-submit"
-									disabled={isSubmit}
 								>
-									{isSubmit ? (
-										<>
-											<div className="spinner"></div>
-											Processing...
-										</>
-									) : (
-										"Save Changes"
-									)}
+										Save Changes
 								</button>
 							</div>
 						</form>

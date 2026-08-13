@@ -10,7 +10,7 @@ import Footer from "../Components/Footer"
 import Floating from "../Components/Floating"
 import Entertain from "../Components/Entertain"
 import Loader from "../Components/Loader"
-
+import Novalue from "../Components/Novalue"
 const Home = ()=>{
 
     // Tanstack query APi calls
@@ -104,7 +104,7 @@ const Home = ()=>{
 {/* Card */}
   <div className="activities-grid">
 {
-    limitedAcademics.map((academic)=>{
+   limitedAcademics.map((academic)=>{
         return(
  <Card key={academic._id} img={academic.ImageUrl} title={academic.title} content={academic.description}/>
         )
@@ -135,6 +135,9 @@ const Home = ()=>{
 
  <div className="events-grid">
     {
+        limitedAcademics.length === 0 ?
+            <Novalue/>
+        :
         limitedEvents?.map((event)=>{
             return(
 

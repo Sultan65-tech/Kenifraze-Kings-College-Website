@@ -374,6 +374,7 @@
             background-color: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             border: none;
+            display: inline;
             width: 100%;
             padding: 10px 0;
             font-weight: 600;
@@ -459,7 +460,7 @@
         }
         .kkcf-btn-submit {
             width: 100%;
-            background-color: var(--kkcf-primary);
+            background-color:#4F46E5;
             color: #ffffff;
             border: none;
             padding: 16px 0;
@@ -473,7 +474,7 @@
             transition: background 0.2s ease;
         }
         .kkcf-btn-submit:hover {
-            background-color: var(--kkcf-primary-hover);
+            background-color:#4338CA;;
         }
         .kkcf-secure-tag {
             font-size: 12px;

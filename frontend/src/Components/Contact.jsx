@@ -1,6 +1,46 @@
 import React from "react"
-
+import axios from "axios"
+import { useEffect } from "react"
+import { useState } from "react"
 const Contact = ()=>{
+    const [contact,setcontact] = useState("")
+    useEffect(()=>{
+     const fetch = async ()=>{
+           const res = await axios.get("http://localhost:5000/api/admin/contact")
+       const mapped=res.data.map((data)=>{
+        return  setcontact(data)
+     })
+        console.log(res.data[0]._id);
+     }
+        fetch()
+    },[1])
+    const data =[
+        {
+            id:contact._id,
+            title:"📍 Address",
+            desc:contact.address
+        },
+          {
+            id:contact._id,
+            title:"📞 Phone",
+            desc:contact.phone
+        },
+          {
+            id:contact._id,
+            title:"📧 Email",
+            desc:contact.email
+        },
+          {
+            id:contact._id,
+            title:"🕒 School Hours",
+            desc:contact.school
+        },
+          {
+            id:contact._id,
+            title:"📍Social Media",
+            desc:contact.social
+        }
+    ]
     return (
         <>
         
@@ -22,32 +62,16 @@ const Contact = ()=>{
 
         {/* <!-- Contact Information --> */}
         <div className="contact-info">
-
-            <div className="info-box">
-                <h3>📍 Address</h3>
-                <p>
-                    22 Oshogbo Street,Off Gbadamosi,<br/>
-                    Lagos, Nigeria
-                </p>
+      {  data.map((datum)=>{
+            return (
+                <div className="info-box" key={datum.id}>
+                <h3 key={datum.id}>{datum.title}</h3>
+                <p>{datum.desc}</p>
             </div>
 
-            <div className="info-box">
-                <h3>📞 Phone</h3>
-                <p>+234 800 123 4567</p>
-            </div>
-
-            <div className="info-box">
-                <h3>📧 Email</h3>
-                <p>info@kenifrazekingscollege.edu.ng</p>
-            </div>
-
-            <div className="info-box">
-                <h3>🕒 School Hours</h3>
-                <p>
-                    Monday - Friday<br/>
-                    8:00 AM - 4:00 PM
-                </p>
-            </div>
+            )
+        })
+            }
 
         </div>
 

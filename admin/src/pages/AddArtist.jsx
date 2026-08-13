@@ -23,9 +23,6 @@ const AddArtist = () => {
 		} else if (!name || name === "") {
 			showMsg("Teacher name required", false);
 			return false;
-		} else if (!email || email === "") {
-			showMsg("Teacher email required", false);
-			return false;
 		} else if (!phone) {
 			showMsg("Teacher phone required", false);
 			return false;
@@ -132,23 +129,13 @@ const AddArtist = () => {
 								/>
 							</div>
 							<div className="form-group">
-								<label>Teacher Contact Number</label>
+								<label>Teacher's  Subject</label>
 								<input
-									type="tel"
-									name="tel"
+									type="text"
+									name="subject"
 									placeholder="Enter teachers number"
 									onChange={e => setPhone(e.target.value)}
 									value={phone}
-								/>
-							</div>
-							<div className="form-group">
-								<label>Teacher Email Address</label>
-								<input
-									type="email"
-									name="email"
-									placeholder="Enter teachers email"
-									onChange={e => setEmail(e.target.value)}
-									value={email}
 								/>
 							</div>
 							<div className="form-group">

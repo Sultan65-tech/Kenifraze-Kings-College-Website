@@ -71,7 +71,7 @@ const App = () => {
 						}
 					/>
 					<Route
-						path="add-artist"
+						path="add-teacher"
 						element={
 								<AddArtist />
 						}

@@ -1,11 +1,16 @@
 import express from 'express';
-import { initializeDonation, verifyDonation } from "../controller/PaymentController.js";
+import { getDonor, initializeDonation, verifyDonation } from "../controller/PaymentController.js";
 const router = express.Router();
 
-// POST /api/payment/donate/initialize
-router.post('/donate/initialize', initializeDonation);
+
+// Get all Donor
+router.get("/donors",getDonor)
 
 // GET /api/payment/donate/verify/:reference
-router.get('/donate/verify/:reference', verifyDonation);
+router.get('/verify/:reference', verifyDonation);
+
+// POST /api/payment/donate/initialize
+router.post('/initialize', initializeDonation);
+
 
 export default router;

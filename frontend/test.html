@@ -1,703 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faculty & Instructors - Academix Academy</title>
-  
-  <style>
-    /* ==========================================
-       VARIABLES & RESET
-       ========================================== */
-    :root {
-      --primary-color: #1a365d;
-      --accent-color: #c59b27;
-      --secondary-color: #2b6cb0;
-      --dark-bg: #0f172a;
-      --light-bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text-main: #2d3748;
-      --text-muted: #718096;
-      --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | Payment Success</title>
+    
+    <!-- Fancybox v5 CSS CDN (Optional: Only if you want to launch it inside a popup modal) -->
+    <link rel="stylesheet" href="https://jsdelivr.net"/>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+        /* Base Page Configurations */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text-main);
-      line-height: 1.6;
-      background-color: var(--light-bg);
-    }
+        /* Success Card Wrapper */
+        .success-card {
+            background: #ffffff;
+            max-width: 480px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 40px 32px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* ==========================================
-       NAVBAR
-       ========================================== */
-    .header {
-      background-color: var(--primary-color);
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 10;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
+        /* Animated Banner Accents */
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
 
-    .navbar {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.5rem;
-    }
+        /* Animated Success Checkmark Ring */
+        .icon-container {
+            width: 72px;
+            height: 72px;
+            background-color: #ecfdf5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            color: #10b981;
+            animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .icon-container svg {
+            width: 36px;
+            height: 36px;
+        }
 
-    .brand {
-      color: #fff;
-      font-size: 1.35rem;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+        /* Typography */
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 8px 0;
+        }
+        .success-subtitle {
+            font-size: 0.95rem;
+            color: #6b7280;
+            margin: 0 0 32px 0;
+            line-height: 1.5;
+        }
 
-    .brand span {
-      color: var(--accent-color);
-    }
+        /* Structured Invoice/Receipt Breakdowns */
+        .receipt-panel {
+            background-color: #f9fafb;
+            border: 1px solid #f3f4f6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        .receipt-row:last-child {
+            margin-bottom: 0;
+            padding-top: 12px;
+            border-top: 1px dashed #e5e7eb;
+        }
+        .label {
+            color: #6b7280;
+        }
+        .value {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .value.amount {
+            font-size: 1.15rem;
+            color: #111827;
+            font-weight: 700;
+        }
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
+        /* Call To Action Buttons */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn-primary {
+            background-color: #111827;
+            color: #ffffff;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background-color: #000000;
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+            color: #111827;
+        }
 
-    .nav-links a {
-      color: rgba(255, 255, 255, 0.85);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-
-    .nav-links a.active,
-    .nav-links a:hover {
-      color: var(--accent-color);
-    }
-
-    /* ==========================================
-       HERO CAROUSEL
-       ========================================== */
-    .carousel {
-      position: relative;
-      height: 480px;
-      width: 100%;
-      overflow: hidden;
-      background-color: var(--dark-bg);
-    }
-
-    .carousel-track-container {
-      height: 100%;
-      position: relative;
-    }
-
-    .carousel-track {
-      list-style: none;
-      height: 100%;
-      position: relative;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .carousel-slide {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
-
-    .slide-bg {
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .slide-1 { background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), #1a365d; }
-    .slide-2 { background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), #2c5282; }
-    .slide-3 { background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), #2b6cb0; }
-
-    .carousel-caption {
-      position: absolute;
-      bottom: 4rem;
-      left: 10%;
-      right: 10%;
-      color: #fff;
-      z-index: 5;
-    }
-
-    .carousel-caption h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.8rem;
-      font-weight: 800;
-    }
-
-    .carousel-caption p {
-      font-size: 1.15rem;
-      margin-bottom: 1.5rem;
-      max-width: 650px;
-    }
-
-    .text-center { 
-      text-align: center; 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Controls */
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.3);
-      border: none;
-      font-size: 1.8rem;
-      color: #fff;
-      cursor: pointer;
-      padding: 0.8rem 1.2rem;
-      border-radius: 50%;
-      z-index: 6;
-      transition: background 0.2s;
-    }
-
-    .carousel-btn:hover { background: var(--accent-color); }
-    .btn-prev { left: 1.5rem; }
-    .btn-next { right: 1.5rem; }
-
-    .carousel-nav {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0.6rem;
-      z-index: 6;
-    }
-
-    .indicator {
-      border: none;
-      width: 32px;
-      height: 4px;
-      border-radius: 2px;
-      background-color: rgba(255, 255, 255, 0.4);
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .indicator.current-slide {
-      background-color: var(--accent-color);
-    }
-
-    /* ==========================================
-       BUTTONS & TAGS
-       ========================================== */
-    .btn {
-      display: inline-block;
-      padding: 0.65rem 1.4rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border-radius: 0.375rem;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    .btn-primary {
-      background-color: var(--accent-color);
-      color: #1a365d;
-      border: none;
-    }
-
-    .btn-outline {
-      border: 1px solid var(--primary-color);
-      color: var(--primary-color);
-      background: transparent;
-      width: 100%;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .btn-outline:hover {
-      background-color: var(--primary-color);
-      color: #ffffff;
-    }
-
-    /* ==========================================
-       CONTAINERS & LAYOUT
-       ========================================== */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .section-header {
-      text-align: center;
-      margin: 4rem 0 3rem;
-    }
-
-    .section-header h2 {
-      font-size: 2.2rem;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .section-header p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    /* STATS OVERLAY */
-    .stats-banner {
-      background: #ffffff;
-      margin-top: -3rem;
-      position: relative;
-      z-index: 8;
-      border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      padding: 1.8rem;
-      display: flex;
-      justify-content: space-around;
-      text-align: center;
-    }
-
-    .stat-item h3 {
-      font-size: 2rem;
-      color: var(--primary-color);
-    }
-
-    .stat-item p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    /* ==========================================
-       INSTRUCTOR CARDS GRID
-       ========================================== */
-    .faculty-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .instructor-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .instructor-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    .card-image-wrapper {
-      width: 100%;
-      height: 260px;
-      overflow: hidden;
-      background-color: #e2e8f0;
-      position: relative;
-    }
-
-    .avatar-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      color: #cbd5e1;
-      background: linear-gradient(135deg, #cbd5e1, #94a3b8);
-    }
-
-    .instructor-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .instructor-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .card-content {
-      padding: 1.8rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .subject-tag {
-      display: inline-block;
-      align-self: flex-start;
-      background-color: rgba(197, 155, 39, 0.15);
-      color: #856404;
-      padding: 0.25rem 0.85rem;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .instructor-name {
-      font-size: 1.3rem;
-      color: var(--primary-color);
-      font-weight: 700;
-      margin-bottom: 0.2rem;
-    }
-
-    .instructor-title {
-      font-size: 0.9rem;
-      color: var(--secondary-color);
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-    }
-
-    .instructor-bio {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 1.2rem;
-      flex-grow: 1;
-    }
-
-    .meta-info {
-      font-size: 0.85rem;
-      color: var(--text-main);
-      border-top: 1px solid #f1f5f9;
-      padding-top: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .meta-info span {
-      font-weight: 600;
-    }
-
-    .divider {
-      margin: 4rem 0;
-      border: 0;
-      border-top: 1px solid #e2e8f0;
-    }
-
-    /* ==========================================
-       FOOTER
-       ========================================== */
-    .footer {
-      padding: 2.5rem 1.5rem;
-      border-top: 1px solid #e2e8f0;
-      background: #ffffff;
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    /* ==========================================
-       RESPONSIVE
-       ========================================== */
-    @media (max-width: 868px) {
-      .stats-banner {
-        flex-direction: column;
-        gap: 1.2rem;
-        margin-top: 1.5rem;
-      }
-
-      .carousel-caption h1 { font-size: 1.8rem; }
-      .carousel-caption p { font-size: 0.95rem; }
-
-      .footer-content {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-      }
-    }
-  </style>
+        /* Simple Intro Scale Animation */
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <header class="header">
-    <nav class="navbar">
-      <a href="#" class="brand">ACADEMIX <span>ACADEMY</span></a>
-      <ul class="nav-links">
-        <li><a href="#">About</a></li>
-        <li><a href="#" class="active">Instructors</a></li>
-        <li><a href="#directory">Faculty Directory</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+    <!-- Main Payment Success Card Frame -->
+    <div class="success-card">
+        
+        <!-- SVG Success Vector Icon -->
+        <div class="icon-container">
+            <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d=" Vector M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
 
-  <main>
-    <!-- CAROUSEL -->
-    <section class="carousel" aria-label="Faculty Highlights">
-      <div class="carousel-track-container">
-        <ul class="carousel-track">
-          <!-- Slide 1 -->
-          <li class="carousel-slide current-slide">
-            <div class="slide-bg slide-1"></div>
-            <div class="carousel-caption text-center">
-              <h1>Meet Our Distinguished Faculty</h1>
-              <p>Passionate educators, published researchers, and dedicated mentors guiding the next generation of scholars.</p>
-              <a href="#directory" class="btn btn-primary">Browse Directory</a>
+        <h1 class="success-title">Payment Successful!</h1>
+        <p class="success-subtitle">Thank you for your purchase. Your transaction has been completed and a receipt was sent to your email.</p>
+
+        <!-- Dynamic Invoice Panel Details -->
+        <div class="receipt-panel">
+            <div class="receipt-row">
+                <span class="label">Payment Status</span>
+                <span class="value" style="color: #10b981;">Completed</span>
             </div>
-          </li>
-          <!-- Slide 2 -->
-          <li class="carousel-slide">
-            <div class="slide-bg slide-2"></div>
-            <div class="carousel-caption text-center">
-              <h1>Excellence in STEM & Research</h1>
-              <p>Learn alongside industry leaders and former research scientists in our advanced laboratory spaces.</p>
-              <a href="#directory" class="btn btn-primary">Explore STEM Faculty</a>
+            <div class="receipt-row">
+                <span class="label">Transaction ID</span>
+                <span class="value">#TXN-9824107</span>
             </div>
-          </li>
-          <!-- Slide 3 -->
-          <li class="carousel-slide">
-            <div class="slide-bg slide-3"></div>
-            <div class="carousel-caption text-center">
-              <h1>Personalized Student Mentorship</h1>
-              <p>With a 12:1 student-to-faculty ratio, every scholar gets tailored academic guidance and college advising.</p>
-              <a href="#directory" class="btn btn-primary">Meet Our Advisors</a>
+            <div class="receipt-row">
+                <span class="label">Payment Method</span>
+                <span class="value">Credit Card (•••• 4242)</span>
             </div>
-          </li>
-        </ul>
-      </div>
+            <div class="receipt-row">
+                <span class="label">Amount Paid</span>
+                <span class="value amount">$49.00</span>
+            </div>
+        </div>
 
-      <button class="carousel-btn btn-prev" aria-label="Previous Slide">&#10094;</button>
-      <button class="carousel-btn btn-next" aria-label="Next Slide">&#10095;</button>
-
-      <div class="carousel-nav">
-        <button class="indicator current-slide" aria-label="Slide 1"></button>
-        <button class="indicator" aria-label="Slide 2"></button>
-        <button class="indicator" aria-label="Slide 3"></button>
-      </div>
-    </section>
-
-    <!-- STATS BANNER -->
-    <div class="container">
-      <div class="stats-banner">
-        <div class="stat-item">
-          <h3>45+</h3>
-          <p>Expert Instructors</p>
+        <!-- Navigation Context Closures -->
+        <div class="btn-group">
+            <a href="/dashboard" class="btn-primary">Go to Dashboard</a>
+            <a href="/receipt/download" class="btn-secondary">Download PDF Receipt</a>
         </div>
-        <div class="stat-item">
-          <h3>85%</h3>
-          <p>Hold Ph.D. or Master's</p>
-        </div>
-        <div class="stat-item">
-          <h3>12:1</h3>
-          <p>Student-Teacher Ratio</p>
-        </div>
-        <div class="stat-item">
-          <h3>14 Yrs</h3>
-          <p>Avg. Teaching Experience</p>
-        </div>
-      </div>
     </div>
 
-    <!-- MAIN INSTRUCTOR DIRECTORY GRID -->
-    <div class="container" id="directory">
-      <div class="section-header">
-        <h2>Faculty Directory</h2>
-        <p>Discover the passionate subject matter experts leading our classrooms.</p>
-      </div>
-
-      <div class="faculty-grid">
-
-        <!-- Instructor Card 1 -->
-        <div class="instructor-card">
-          <div class="card-image-wrapper">
-            <div class="avatar-placeholder">👨‍🏫</div>
-            <!-- Replace placeholder with image: <img src="instructor1.jpg" alt="Dr. Marc Song" /> -->
-          </div>
-          <div class="card-content">
-            <span class="subject-tag">Mathematics & Physics</span>
-            <h3 class="instructor-name">Dr. Marc Song</h3>
-            <p class="instructor-title">Head of STEM Department</p>
-            <p class="instructor-bio">Ph.D. in Applied Mathematics from MIT. Dr. Song brings over 12 years of teaching experience, specializing in calculus and quantum mechanics.</p>
-            <div class="meta-info">
-              <p>Office: <span>Science Wing 204</span></p>
-              <p>Hours: <span>Mon/Wed 2-4 PM</span></p>
-            </div>
-            <a href="#" class="btn btn-outline">View Full Profile</a>
-          </div>
-        </div>
-
-        <!-- Instructor Card 2 -->
-        <div class="instructor-card">
-          <div class="card-image-wrapper">
-            <div class="avatar-placeholder">👩‍🏫</div>
-            <!-- Replace placeholder with image: <img src="instructor2.jpg" alt="Prof. Elena Rostova" /> -->
-          </div>
-          <div class="card-content">
-            <span class="subject-tag">Chemistry & Biology</span>
-            <h3 class="instructor-name">Prof. Elena Rostova</h3>
-            <p class="instructor-title">Senior Biochemistry Lecturer</p>
-            <p class="instructor-bio">Former pharmaceutical research scientist. Elena utilizes hands-on lab experiments to ignite curiosity about living systems and genetics.</p>
-            <div class="meta-info">
-              <p>Office: <span>Bio Lab 102</span></p>
-              <p>Hours: <span>Tue/Thu 10-12 AM</span></p>
-            </div>
-            <a href="#" class="btn btn-outline">View Full Profile</a>
-          </div>
-        </div>
-
-        <!-- Instructor Card 3 -->
-        <div class="instructor-card">
-          <div class="card-image-wrapper">
-            <div class="avatar-placeholder">👨‍💼</div>
-            <!-- Replace placeholder with image: <img src="instructor3.jpg" alt="Marcus Jenkins" /> -->
-          </div>
-          <div class="card-content">
-            <span class="subject-tag">English & Literature</span>
-            <h3 class="instructor-name">Marcus Jenkins</h3>
-            <p class="instructor-title">Humanities Department Lead</p>
-            <p class="instructor-bio">MA in Creative Writing from Oxford. Marcus is passionate about helping students discover their unique voice through classical poetry and drama.</p>
-            <div class="meta-info">
-              <p>Office: <span>Library Suite B</span></p>
-              <p>Hours: <span>Fri 1-3 PM</span></p>
-            </div>
-            <a href="#" class="btn btn-outline">View Full Profile</a>
-          </div>
-        </div>
-
-        <!-- Instructor Card 4 -->
-        <div class="instructor-card">
-          <div class="card-image-wrapper">
-            <div class="avatar-placeholder">👩‍💼</div>
-            <!-- Replace placeholder with image: <img src="instructor4.jpg" alt="Sarah Chen" /> -->
-          </div>
-          <div class="card-content">
-            <span class="subject-tag">Computer Science</span>
-            <h3 class="instructor-name">Sarah Chen</h3>
-            <p class="instructor-title">Robotics & AI Director</p>
-            <p class="instructor-bio">M.S. in Computer Engineering. Sarah leads our competitive robotics teams and teaches algorithms, web development, and cyber ethics.</p>
-            <div class="meta-info">
-              <p>Office: <span>Tech Lab 301</span></p>
-              <p>Hours: <span>Mon/Thu 3-5 PM</span></p>
-            </div>
-            <a href="#" class="btn btn-outline">View Full Profile</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="container footer" id="contact">
-    <div class="footer-content">
-      <p>&copy; 2026 Academix Academy &middot; <a href="#">Faculty Portal</a> &middot; <a href="#">Admissions</a> &middot; <a href="#">Privacy Policy</a></p>
-      <p><a href="#">▲ Back to top</a></p>
-    </div>
-  </footer>
-
-  <!-- CAROUSEL SCRIPT -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const track = document.querySelector('.carousel-track');
-      const slides = Array.from(track.children);
-      const nextButton = document.querySelector('.btn-next');
-      const prevButton = document.querySelector('.btn-prev');
-      const dotsNav = document.querySelector('.carousel-nav');
-      const dots = Array.from(dotsNav.children);
-
-      const slideWidth = slides[0].getBoundingClientRect().width;
-
-      const setSlidePosition = (slide, index) => {
-        slide.style.left = slideWidth * index + 'px';
-      };
-      slides.forEach(setSlidePosition);
-
-      const moveToSlide = (track, currentSlide, targetSlide) => {
-        track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
-        currentSlide.classList.remove('current-slide');
-        targetSlide.classList.add('current-slide');
-      };
-
-      const updateDots = (currentDot, targetDot) => {
-        currentDot.classList.remove('current-slide');
-        targetDot.classList.add('current-slide');
-      };
-
-      nextButton.addEventListener('click', () => {
-        const currentSlide = track.querySelector('.current-slide');
-        let nextSlide = currentSlide.nextElementSibling;
-        const currentDot = dotsNav.querySelector('.current-slide');
-        let nextDot = currentDot.nextElementSibling;
-
-        if (!nextSlide) {
-          nextSlide = slides[0];
-          nextDot = dots[0];
-        }
-
-        moveToSlide(track, currentSlide, nextSlide);
-        updateDots(currentDot, nextDot);
-      });
-
-      prevButton.addEventListener('click', () => {
-        const currentSlide = track.querySelector('.current-slide');
-        let prevSlide = currentSlide.previousElementSibling;
-        const currentDot = dotsNav.querySelector('.current-slide');
-        let prevDot = currentDot.previousElementSibling;
-
-        if (!prevSlide) {
-          prevSlide = slides[slides.length - 1];
-          prevDot = dots[dots.length - 1];
-        }
-
-        moveToSlide(track, currentSlide, prevSlide);
-        updateDots(currentDot, prevDot);
-      });
-
-      dotsNav.addEventListener('click', e => {
-        const targetDot = e.target.closest('button');
-        if (!targetDot) return;
-
-        const currentSlide = track.querySelector('.current-slide');
-        const currentDot = dotsNav.querySelector('.current-slide');
-        const targetIndex = dots.findIndex(dot => dot === targetDot);
-        const targetSlide = slides[targetIndex];
-
-        moveToSlide(track, currentSlide, targetSlide);
-        updateDots(currentDot, targetDot);
-      });
-
-      setInterval(() => {
-        nextButton.click();
-      }, 6000);
-    });
-  </script>
 </body>
 </html>

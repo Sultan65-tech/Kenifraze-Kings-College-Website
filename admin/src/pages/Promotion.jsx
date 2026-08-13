@@ -13,7 +13,7 @@ import PopupWindow from "../components/PopupWindow";
 
 const Promotion = () => {
 	document.title =
-		"Promotion Management -All  Bizz Entertainment Admin Dashboard";
+		"Donors Management -Kenifraze Kings College Admin Dashboard";
 	const {
 		promotions,
 		loading,
@@ -141,7 +141,7 @@ const Promotion = () => {
 				<div className="container">
 					<div className="page-header">
 						<h1 className="page-title">
-							All Promotions ({totalPromotions})
+							All Donors ({totalPromotions})
 						</h1>
 					</div>
 					<div className="controls">
@@ -225,12 +225,12 @@ const Promotion = () => {
 						<table id="customersTable">
 							<thead>
 								<tr>
-									<th>Artist Name</th>
-									<th>Phone/Contact</th>
+									<th> First Name</th>
+									<th> Last Name</th>
+									{/* <th>Phone/Contact</th> */}
 									<th>Email</th>
-									<th>Price/Costs</th>
+									<th>Amount</th>
 									<th>Payment Status</th>
-									<th>Service Type</th>
 									<th>Action/Manage</th>
 								</tr>
 							</thead>

@@ -1,17 +1,53 @@
 import axios from 'axios';
 import Donation from "../models/PaymentModel.js";
-import { configDotenv } from 'dotenv';
+import dotenv from 'dotenv/config';
+
+// Getting All the Donor
+export const getDonor = async(req,res)=>{
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 8;
+    const search = req.query.search || "";
+    const status = req.query.status || "";
+
+    // Dynamic filter query for MongoDB
+    const query = {};
+
+    if(status) {
+      query.status = status;
+    }
+    if (search) {
+      query.$or = [
+        {donorfName :{$regex:search,$options:"i"}},
+        {donorlName :{$regex:search,$options:"i"}},
+        {email :{$regex:search,Option:"i"}},
+        {reference :{$regex:search,Option:"i"}},
+      ]
+    }
+
+    // Skip previous pages and fetch limited records
+    const skip = (page - 1) * limit;
+    const Finddonor = await Donation.find().sort({createdAt: -1 }).skip(skip).limit(limit)
+  res.status(200).json(Finddonor)
+  } catch (error) {
+    console.log("Error :" + error)
+    res.send(500).send("Error in getting Donor")
+  }
+}
+
 // 1. Initialize Payment
 export const initializeDonation = async (req, res) => {
   try {
-    console.log(req.body.donorlName);
     const {   donorfName,donorlName,email,amount } = req.body;
-    console.log(process.env.TEST_PAYSTACK_SECRET_KEY);
+    console.log(donorfName,donorlName,email,amount);
+    //console.log(process.env.TEST_PAYSTACK_SECRET_KEY);
     
 
     if (!email || !amount || !donorfName || !donorlName) {
       return res.status(400).json({ error: "Email, amount, and donorName are required." });
     }
+    console.log("tester",{donorfName,donorlName,email,amount });
+    
 
     // Convert amount to Kobo/Cents (Paystack calculates in lowest currency unit: 1 NGN = 100 Kobo)
     const amountInKobo = Math.round(Number(amount) * 100);
@@ -23,7 +59,7 @@ export const initializeDonation = async (req, res) => {
         email,
         amount: amountInKobo,
         metadata: {  donorfName,donorlName },
-       // callback_url: `${process.env.FRONTEND_URL}/donation/verify`, // React redirect page
+     callback_url: process.env.VITE_URL // React redirect page
       },
       {
         headers: {
@@ -80,25 +116,27 @@ export const verifyDonation = async (req, res) => {
       }
     );
 
-    const { status, amount, customer, metadata } = paystackResponse.data.data;
+    const { status, amount,channel,paid_at, customer, metadata } = paystackResponse.data.data;
 
     if (status === 'success') {
       // Find pending donation record and update status
       const updatedDonation = await Donation.findOneAndUpdate(
         { reference },
         { status: 'success' },
-        { new: true }
+        { returnDocument: "after" }
       );
 
       return res.status(200).json({
         message: "Payment verified successfully!",
-        donation: updatedDonation,
+        donation: {
+          ...updatedDonation.toObject(),
+        channel,
+        paidAt:paid_at,
+        }
       });
-    } else {
-      await Donation.findOneAndUpdate({ reference }, { status: 'failed' });
       return res.status(400).json({ error: "Payment verification failed or was abandoned." });
-    }
-
+    
+    } 
   } catch (error) {
     console.error("Paystack Verify Error:", error.response?.data || error.message);
     res.status(500).json({ error: "Error verifying donation status." });
